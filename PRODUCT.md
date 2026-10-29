@@ -43,12 +43,12 @@ In the box: PD42 fan unit, acrylic cover, infrared remote, power adapter, screwd
 
 Hardware descriptions carried over from the live site's copy (`holo/src/lib/content.ts`), taken from retail listings and the supplier's parts sheet rather than a datasheet; keep them unless the supplier sheet contradicts them: cover clips on with eight fasteners; two blades on one LED bar; brushless motor with the infrared receiver on the face of the hub; housing holds the SD card slot and Wi‑Fi radio; mounting base screws to the wall with the power jack on its rim.
 
-Website capabilities to build:
-- Marketing landing page with a quote request form.
-- Analytics: visitor count and form-submission count (mechanism undecided; a self-hosted event store or a privacy-light provider both acceptable).
-- Customer portal: after paying outside the site, the customer signs in and uploads logo / product files plus brief notes. No payments, no checkout. Auth mechanism undecided (magic link or a per-order access code are the candidates).
+Website capabilities (built 2026-10-29):
+- Marketing landing page with a quote request form (stored first-party).
+- Analytics at `/admin`: daily unique visitors (the number the client is billed on), page views, quote requests, per-day chart, referrers, billing amount at an editable rate, CSV export. Self-hosted SQLite, no third-party script, no cookies for visitors.
+- Customer portal: after paying outside the site, the admin creates an order and sends its unique link (`/upload/<token>`); the customer uploads logo / product files and notes there. No payments, no checkout, no sign-up; the link is the credential.
 
-Undecided: contact email for the business (the live site still uses a placeholder), form backend, analytics provider, portal auth.
+Undecided: contact email for the business (the live site still uses a placeholder); email notifications for new quotes and uploads.
 
 ## Brand Commitments
 

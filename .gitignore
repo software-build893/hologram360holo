@@ -49,3 +49,4 @@ next-env.d.ts
 /.impeccable/build/font-match/
 /.impeccable/review/diff/
 /.impeccable/live/
+!.env.example

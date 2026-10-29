@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { record } from "@/lib/store";
+import { recordQuote } from "@/lib/db";
 import { offers } from "@/lib/content";
+import { userAgent, visitorId } from "@/lib/visitor";
 
 const ids = new Set<string>(offers.map((o) => o.id));
 
@@ -20,6 +21,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "incomplete" }, { status: 422 });
   }
   const total = offers.filter((o) => items.includes(o.id)).reduce((sum, o) => sum + o.price, 0);
-  await record("quote", { name, business, email, notes, items, total, ua: req.headers.get("user-agent") ?? "" });
+  recordQuote({ vid: visitorId(req), name, business, email, notes, items, total, ua: userAgent(req) });
   return NextResponse.json({ ok: true, total });
 }
