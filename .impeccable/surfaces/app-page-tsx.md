@@ -31,6 +31,6 @@ FIRST VIEWPORT (revised): Nav bar at top (wordmark left, four links, cyan Get a 
 
 FORM: Category standard, played straight (the canon exit the user chose; my own list ranked the sign-painter window first). seed:8fc387c8864d0ad7
 
-MOTION: Signature interaction is the niche cycle: every 5 s (or on tab click) the hologram cross-dissolves to the next client clip while the environment plate cross-fades behind it; the progress underline fills over the interval; the fan hardware and callouts stay fixed. Reduced motion stops the auto-cycle and keeps tabs manual.
+MOTION (revised 2026-10-29, at the user's request to match holo v1): the hero is a pinned 420vh scroll story on wide screens. Scrolling lifts the clear cover, slows the rotor from 700 rpm to a crawl so the two blades and the LED sweep read, swings the camera round the fan, and spins it back up; four step lines rise in and leave by scroll band, part labels pin to the hardware, a cyan progress bar tracks the story, and a closing line lands at the end. Phones and reduced motion get the flowing hero with the fan at full speed. The niche cycle still runs: every 5 s (or on tab click) the hologram cross-dissolves to the next client clip while the environment plate cross-fades behind it; the progress underline fills over the interval; the fan hardware and callouts stay fixed. Reduced motion stops the auto-cycle and keeps tabs manual.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

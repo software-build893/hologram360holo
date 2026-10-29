@@ -1,24 +1,52 @@
 /* Product-led first viewport. One unit = 1px at 1344px wide, so the composition scales with the viewport.
    Positions follow the product-led comp (.impeccable/mocks/comp-product-led.png): the fan at life scale leads,
-   the claim sits bottom-left, the action bottom-right, the callouts hang off the hardware. */
-.frame {
-  --u: calc(100vw / 1344);
+   the claim sits bottom-left, the action bottom-right; the story labels pin to the fan during the scroll. */
+.stage {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1344 / 752;
+  height: 420vh;
+  background: var(--bg);
+}
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   background: var(--bg);
   isolation: isolate;
   font-family: var(--font);
 }
+.anchor {
+  position: absolute;
+  top: 14%;
+  left: 0;
+  width: 1px;
+  height: 1px;
+}
+/* the measured frame, centred in the pinned viewport at whatever unit fits both axes */
+.frame {
+  --u: min(100vw / 1344, 100svh / 752);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(1344 * var(--u));
+  height: calc(752 * var(--u));
+  transform: translate(-50%, -50%);
+}
+.copy {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+.copy > * {
+  pointer-events: auto;
+}
 
 /* ---------- plates ---------- */
 .environment {
   position: absolute;
-  left: 0;
-  top: calc(11 * var(--u));
-  width: 100%;
-  height: calc(573 * var(--u));
+  inset: 0;
   opacity: 0;
   transition: opacity 900ms var(--ease-out);
 }
@@ -183,63 +211,6 @@
   border-color: var(--accent);
 }
 
-/* ---------- callouts hung off the hardware ---------- */
-.calloutRotor,
-.calloutCover {
-  position: absolute;
-  font-size: calc(14 * var(--u));
-  font-weight: 400;
-  line-height: 1.3;
-  white-space: nowrap;
-  color: var(--fg);
-  z-index: 2;
-}
-/* rotor: label on the left, a flat rule running right to a dot on the upper-left blade */
-.calloutRotor {
-  left: calc(196 * var(--u));
-  top: calc(141 * var(--u));
-}
-.leaderRotor,
-.leaderCover {
-  position: absolute;
-  width: calc(6 * var(--u));
-  height: calc(6 * var(--u));
-  border-radius: 50%;
-  background: var(--fg);
-  pointer-events: none;
-  z-index: 2;
-}
-.leaderRotor::before,
-.leaderCover::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  height: calc(1 * var(--u));
-  background: var(--fg);
-  transform: translateY(-50%);
-}
-.leaderRotor {
-  left: calc(495 * var(--u));
-  top: calc(147 * var(--u));
-}
-.leaderRotor::before {
-  right: calc(8 * var(--u));
-  width: calc(170 * var(--u));
-}
-/* cover: dot on the lower-right rim of the clear cover, rule running right to the label */
-.leaderCover {
-  left: calc(846 * var(--u));
-  top: calc(470 * var(--u));
-}
-.leaderCover::before {
-  left: calc(8 * var(--u));
-  width: calc(48 * var(--u));
-}
-.calloutCover {
-  left: calc(910 * var(--u));
-  top: calc(464 * var(--u));
-}
-
 /* ---------- niche tabs, under the claim ---------- */
 .tabs {
   position: absolute;
@@ -294,13 +265,12 @@
   to { width: 100%; }
 }
 
-/* ---------- specs strip ---------- */
+/* ---------- specs strip, below the stage ---------- */
 .band {
-  position: absolute;
-  left: 0;
-  top: 77.79%;
+  --u: calc(100vw / 1344);
+  position: relative;
   width: 100%;
-  height: 22.21%;
+  height: calc(167 * var(--u));
   background: var(--bg);
   display: flex;
   align-items: center;
@@ -355,17 +325,151 @@
   color: var(--fg-dim);
 }
 
+/* ---------- the story: steps, closing line, labels, progress ---------- */
+.steps {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.step {
+  position: absolute;
+  left: calc(58 * var(--u));
+  bottom: calc(96 * var(--u));
+  max-width: calc(780 * var(--u));
+}
+.stepText {
+  margin: 0;
+  font-size: calc(54 * var(--u));
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--fg);
+  text-shadow: 0 0 calc(60 * var(--u)) rgba(10, 10, 10, 0.6);
+}
+.stepLine {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.stepLine > span {
+  display: block;
+  will-change: transform;
+}
+.end {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 0);
+  max-width: calc(560 * var(--u));
+  text-align: center;
+  pointer-events: none;
+  z-index: 2;
+  text-shadow: 0 2px 40px rgba(10, 10, 10, 0.9), 0 0 12px rgba(10, 10, 10, 0.8);
+}
+.endTitle {
+  margin: 0 0 calc(10 * var(--u));
+  font-size: calc(44 * var(--u));
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.endLede {
+  margin: 0;
+  font-size: calc(18 * var(--u));
+  color: rgba(244, 245, 245, 0.85);
+}
+.labels {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 2;
+}
+.lbl {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  white-space: nowrap;
+  font-size: calc(13 * var(--u));
+  font-weight: 500;
+  color: var(--fg);
+  will-change: transform, opacity;
+  transition: opacity 150ms linear;
+}
+.lblRight {
+  flex-direction: row-reverse;
+}
+.lblDot {
+  width: calc(6 * var(--u));
+  height: calc(6 * var(--u));
+  border-radius: 50%;
+  background: var(--accent);
+}
+.lblLine {
+  width: calc(28 * var(--u));
+  height: calc(1 * var(--u));
+  background: rgba(244, 245, 245, 0.6);
+}
+.lblText {
+  padding: calc(4 * var(--u)) calc(8 * var(--u));
+  border-radius: calc(6 * var(--u));
+  background: rgba(10, 10, 10, 0.72);
+}
+.progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(2 * var(--u));
+  background: rgba(244, 245, 245, 0.12);
+  z-index: 3;
+}
+.progressBar {
+  height: 100%;
+  width: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
 /* ---------- phones and small tablets: the measured frame gives way to a flowing hero ---------- */
 @media (max-width: 860px) {
+  .stage {
+    height: auto;
+  }
+  .sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
   .frame {
     --u: 1px;
-    aspect-ratio: auto;
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    transform: none;
     display: flex;
     flex-direction: column;
   }
+  .copy {
+    display: contents;
+  }
+  .steps,
+  .end,
+  .labels,
+  .progress,
+  .anchor {
+    display: none;
+  }
   .environment {
-    top: 0;
-    height: 100%;
+    inset: 0;
   }
   .environment img {
     object-position: 55% top;
@@ -409,12 +513,6 @@
     width: min(92vw, 440px);
     height: min(92vw, 440px);
     margin: 4px auto 0;
-  }
-  .leaderRotor,
-  .leaderCover,
-  .calloutRotor,
-  .calloutCover {
-    display: none;
   }
   .headline {
     position: relative;

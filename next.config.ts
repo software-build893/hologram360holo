@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
   // The dev badge adds ink the comp never shows; the fidelity captures run against the dev server.
   devIndicators: false,
   turbopack: { root: __dirname },
+  // deploy.sh ships .next/standalone (a self-contained server.js) to the VPS
+  output: "standalone",
 };
 
 export default nextConfig;

@@ -64,6 +64,7 @@ export const glassVertex = discVertex;
 export const glassFragment = /* glsl */ `
   precision highp float;
   uniform float uTime;
+  uniform float uLift;
   varying vec2 vUv;
 
   void main() {
@@ -82,7 +83,8 @@ export const glassFragment = /* glsl */ `
     // diagonal sheen across the face, drifting slowly so the surface reads as glass, not haze
     float sheen = smoothstep(0.55, 0.0, abs(p.x * 0.6 - p.y * 0.8 + 0.15 + 0.08 * sin(uTime * 0.6))) * 0.045 * (1.0 - r * 0.6);
 
-    float a = rim * (0.05 + 0.38 * glint + 0.8 * glint2) + sheen;
+    // as the cover lifts toward the camera its reflections brighten a little, then it is gone
+    float a = (rim * (0.05 + 0.38 * glint + 0.8 * glint2) + sheen) * (1.0 + 0.6 * uLift) * (1.0 - smoothstep(0.7, 1.0, uLift));
     gl_FragColor = vec4(vec3(1.0) * a, a);
   }
 `;
@@ -128,6 +130,7 @@ export const streakVertex = /* glsl */ `
 export const streakFragment = /* glsl */ `
   precision highp float;
   uniform float uTime;
+  uniform float uFade;
   uniform sampler2D uTex;
   varying vec2 vUv;
   varying vec2 vDisc;
@@ -146,7 +149,7 @@ export const streakFragment = /* glsl */ `
     vec3 pic = texture2D(uTex, clamp(vDisc, 0.0, 1.0)).rgb;
     float lit = max(pic.r, max(pic.g, pic.b));
     float behind = 1.0 - smoothstep(0.12, 0.45, lit) * 0.85;
-    float a = (body + edge + line * dots) * ends * hubGap * behind;
+    float a = (body + edge + line * dots) * ends * hubGap * behind * (1.0 - uFade);
     vec3 col = mix(vec3(0.40, 0.56, 1.0), vec3(0.86, 0.93, 1.0), line) * a;
     gl_FragColor = vec4(col, a);
   }

@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { LABELS } from "./fan/labels";
+import { STEPS, useScrollStory } from "@/lib/useScrollStory";
+import { scene } from "@/lib/scene";
 import styles from "./hero.module.css";
 
 // three.js touches window at import time; the canvas only exists on the client.
@@ -37,29 +40,47 @@ function Icon({ name }: { name: string }) {
       return <svg {...common}><path d="M4 18 18 6" /><path d="M4 18h16" /><path d="M9.5 18a6 6 0 0 0-1.6-4.1" /></svg>;
     case "bolt":
       return <svg {...common}><path d="M13 3 5 14h6l-1 7 8-11h-6z" /></svg>;
-    case "fan":
-      return <svg {...common}><circle cx="12" cy="12" r="2" /><path d="M12 10c0-4 2-6 5-6s3 4 0 5-5 1-5 1M12 14c0 4-2 6-5 6s-3-4 0-5 5-1 5-1M10 12c-4 0-6-2-6-5s4-3 5 0 1 5 1 5M14 12c4 0 6 2 6 5s-4 3-5 0-1-5-1-5" /></svg>;
-    case "play":
-      return <svg {...common}><rect x="3" y="4" width="18" height="16" rx="2" /><path d="m10 9 5 3-5 3z" /></svg>;
-    case "tripod":
-      return <svg {...common}><path d="M12 4v16M12 8l-6 12M12 8l6 12M8 4h8" /></svg>;
     default:
       return null;
   }
 }
 
-export default function Hero() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [reduced, setReduced] = useState(false);
-
+function useMedia(query: string) {
+  const [m, setM] = useState(false);
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduced(mq.matches);
+    const mq = window.matchMedia(query);
+    const sync = () => setM(mq.matches);
     sync();
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
-  }, []);
+  }, [query]);
+  return m;
+}
+
+export default function Hero() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reduced = useMedia("(prefers-reduced-motion: reduce)");
+  const phone = useMedia("(max-width: 860px)");
+
+  // the scroll story runs on wide screens; phones get the flowing hero with the fan at full speed
+  const stage = useRef<HTMLElement>(null);
+  const copy = useRef<HTMLDivElement>(null);
+  const steps = useRef<HTMLDivElement>(null);
+  const end = useRef<HTMLDivElement>(null);
+  const progress = useRef<HTMLDivElement>(null);
+  const refs = useMemo(() => ({ stage, hero: copy, steps, end, progress }), []);
+  useScrollStory(refs, !phone && !reduced);
+
+  useEffect(() => {
+    if (phone) return;
+    const on = (e: PointerEvent) => {
+      scene.pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+      scene.pointer.y = -((e.clientY / window.innerHeight) * 2 - 1);
+    };
+    window.addEventListener("pointermove", on, { passive: true });
+    return () => window.removeEventListener("pointermove", on);
+  }, [phone]);
 
   useEffect(() => {
     if (paused || reduced) return;
@@ -70,85 +91,109 @@ export default function Hero() {
   const current = niches[active];
 
   return (
-    <section
-      className={styles.frame}
-      aria-label="3D Hologram Ads"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      {/* Environment plates, one per niche; only the active one is visible. */}
-      {niches.map((n, i) => (
-        <picture key={n.id} className={styles.environment} data-active={i === active || undefined}>
-          <source srcSet={`/assets/env/${n.env}.webp`} type="image/webp" />
-          <img
-            src={i === 0 ? "/assets/plates/hero-environment.png" : `/assets/env/${n.env}.png`}
-            alt=""
-            width={2688}
-            height={1170}
-            decoding={i === 0 ? "sync" : "async"}
-            fetchPriority={i === 0 ? "high" : "low"}
-            loading={i === 0 ? "eager" : "lazy"}
-          />
-        </picture>
-      ))}
+    <>
+      <section ref={stage} className={styles.stage} id="top" aria-label="3D Hologram Ads">
+        <div className={styles.sticky}>
+          {/* Environment plates, one per niche; only the active one is visible. */}
+          {niches.map((n, i) => (
+            <picture key={n.id} className={styles.environment} data-active={i === active || undefined}>
+              <source srcSet={`/assets/env/${n.env}.webp`} type="image/webp" />
+              <img
+                src={i === 0 ? "/assets/plates/hero-environment.png" : `/assets/env/${n.env}.png`}
+                alt=""
+                width={2688}
+                height={1170}
+                decoding={i === 0 ? "sync" : "async"}
+                fetchPriority={i === 0 ? "high" : "low"}
+                loading={i === 0 ? "eager" : "lazy"}
+              />
+            </picture>
+          ))}
 
-      <header className={styles.nav}>
-        <a className={styles.wordmark} href="#top" aria-label="3D Hologram Ads, home">
-          <span className={styles.wordmarkAccent}>3D</span> HOLOGRAM ADS
-        </a>
-        <nav aria-label="Primary">
-          <a className={styles.navHow} href="#how">How it works</a>
-          <a className={styles.navWild} href="#wild">In the wild</a>
-          <a className={styles.navKit} href="#kit">The kit</a>
-          <a className={styles.navPrices} href="#prices">Prices</a>
-        </nav>
-        <a className={styles.navCta} href="#quote">Get a quote</a>
-      </header>
+          <div className={styles.frame} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+            <header className={styles.nav}>
+              <a className={styles.wordmark} href="#top" aria-label="3D Hologram Ads, home">
+                <span className={styles.wordmarkAccent}>3D</span> HOLOGRAM ADS
+              </a>
+              <nav aria-label="Primary">
+                <a className={styles.navHow} href="#how">How it works</a>
+                <a className={styles.navWild} href="#wild">In the wild</a>
+                <a className={styles.navKit} href="#kit">The kit</a>
+                <a className={styles.navPrices} href="#prices">Prices</a>
+              </nav>
+              <a className={styles.navCta} href="#quote">Get a quote</a>
+            </header>
 
-      <h1 className={styles.headline}>Your logo,<br />floating in mid-air.</h1>
-      <p className={styles.subline}>Holographic LED fan with custom 3D content, from $250.</p>
-      <a className={styles.ctaLink} href="#wild">
-        <span className={styles.ctaLinkText}>See it in the wild</span>
-        <svg className={styles.ctaArrow} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-      </a>
+            {/* The fan itself, rendered live: the same rotor, LED strips and persistence-of-vision disc as the holo site.
+                Scrolling lifts the cover, slows the rotor so the blades read, swings the camera round, and spins back up. */}
+            <div className={styles.fan} role="img" aria-label={`Holographic LED fan spinning ${current.client}`}>
+              <FanScene className={styles.fanCanvas} clips={niches.map((n) => ({ src: n.clip, poster: n.poster }))} active={active} />
+              {/* Labels pinned to parts of the fan during the story; the canvas positions them in its own pixels. */}
+              <div className={styles.labels} aria-hidden="true">
+                {LABELS.map((l) => (
+                  <div key={l.id} id={`lbl-${l.id}`} className={`${styles.lbl} ${l.align === "right" ? styles.lblRight : ""}`} style={{ opacity: 0 }}>
+                    <span className={styles.lblDot} />
+                    <span className={styles.lblLine} />
+                    <span className={styles.lblText}>{l.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-      {/* The fan itself, rendered live: the same rotor, LED strips and persistence-of-vision disc as the holo site,
-          spinning at 700 rpm with the client's real clip painted into mid-air. */}
-      <div className={styles.fan} role="img" aria-label={`Holographic LED fan spinning the ${current.client} hologram`}>
-        <FanScene
-          className={styles.fanCanvas}
-          clips={niches.map((n) => ({ src: n.clip, poster: n.poster }))}
-          active={active}
-        />
-      </div>
+            {/* The opening copy: leaves as the story starts. */}
+            <div ref={copy} className={styles.copy}>
+              <h1 className={styles.headline}>Your logo,<br />floating in mid-air.</h1>
+              <p className={styles.subline}>Holographic LED fan with custom 3D content, from $250.</p>
+              <a className={styles.ctaLink} href="#wild">
+                <span className={styles.ctaLinkText}>See it in the wild</span>
+                <svg className={styles.ctaArrow} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </a>
+              <div className={styles.tabs} role="tablist" aria-label="Business type">
+                {niches.map((n, i) => (
+                  <button
+                    key={n.id}
+                    type="button"
+                    role="tab"
+                    id={`tab-${n.id}`}
+                    aria-selected={i === active}
+                    tabIndex={i === active ? 0 : -1}
+                    className={styles.tab}
+                    data-active={i === active || undefined}
+                    data-cycling={!paused && !reduced ? "" : undefined}
+                    onClick={() => setActive(i)}
+                    onKeyDown={(e) => {
+                      if (e.key === "ArrowRight") setActive((i + 1) % niches.length);
+                      if (e.key === "ArrowLeft") setActive((i - 1 + niches.length) % niches.length);
+                    }}
+                  >
+                    {n.label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-      <span className={styles.leaderRotor} aria-hidden="true" />
-      <span className={styles.calloutRotor}>Two-blade rotor</span>
-      <span className={styles.leaderCover} aria-hidden="true" />
-      <span className={styles.calloutCover}>Clear acrylic cover</span>
+            {/* The story's copy, one step per band of scroll. */}
+            <div ref={steps} className={styles.steps} aria-live="polite">
+              {STEPS.map((s, i) => (
+                <div key={i} className={styles.step} style={{ visibility: "hidden" }}>
+                  <p className={styles.stepText}>
+                    <span className={styles.stepLine}><span data-line>{s.a}</span></span>
+                    <span className={styles.stepLine}><span data-line>{s.b}</span></span>
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div ref={end} className={styles.end} style={{ visibility: "hidden" }}>
+              <p className={styles.endTitle}>Now you know the trick.</p>
+              <p className={styles.endLede}>It still works on everyone who walks by.</p>
+            </div>
 
-      <div className={styles.tabs} role="tablist" aria-label="Business type">
-        {niches.map((n, i) => (
-          <button
-            key={n.id}
-            type="button"
-            role="tab"
-            id={`tab-${n.id}`}
-            aria-selected={i === active}
-            tabIndex={i === active ? 0 : -1}
-            className={styles.tab}
-            data-active={i === active || undefined}
-            data-cycling={!paused && !reduced ? "" : undefined}
-            onClick={() => setActive(i)}
-            onKeyDown={(e) => {
-              if (e.key === "ArrowRight") setActive((i + 1) % niches.length);
-              if (e.key === "ArrowLeft") setActive((i - 1 + niches.length) % niches.length);
-            }}
-          >
-            {n.label}
-          </button>
-        ))}
-      </div>
+            <div className={styles.progress} aria-hidden="true"><div ref={progress} className={styles.progressBar} /></div>
+          </div>
+        </div>
+        {/* nav anchor: lands where the story begins */}
+        <div id="how" className={styles.anchor} aria-hidden="true" />
+      </section>
 
       <div className={styles.band}>
         <dl className={styles.specs} aria-label="Specifications">
@@ -161,6 +206,6 @@ export default function Hero() {
           ))}
         </dl>
       </div>
-    </section>
+    </>
   );
 }

@@ -158,7 +158,7 @@ Imagery is the proof. Field clips and client reels are real and unretouched; the
 - Hairline dividers (1px #262626) do the structural work; borders replace shadows.
 - Pill buttons, underlined arrow links, segmented tabs with a cyan progress underline.
 - Live three.js fan; real footage in rounded tiles and circular discs; generated plates behind the hero only.
-- Motion is slow and eased-out (cubic-bezier(0.16, 1, 0.3, 1)); the niche cycle is the one signature interaction.
+- Motion is slow and eased-out (cubic-bezier(0.16, 1, 0.3, 1)); the niche cycle and, on wide screens, the scroll-driven fan story are the two authored moments.
 
 ## Colors
 
@@ -277,6 +277,7 @@ A transparent `@react-three/fiber` canvas (fov 32, camera at z 5.4, dpr 1–1.75
 ### Motion
 - **Easing:** everything uses `cubic-bezier(0.16, 1, 0.3, 1)`; durations 150ms (checkbox, input border), 200ms (colour, lift), 250ms (tab colour), 300ms (pill transform), 700ms (tile zoom, reveal opacity), 900ms (plate crossfade, reveal rise).
 - **Niche cycle:** every 5000ms, or on tab click; hover pauses; the progress underline, plate crossfade and disc dissolve run together.
+- **Scroll story (wide screens):** the hero is pinned for 420vh. Scroll progress, written to a shared `scene` object and never to React state, lifts the clear cover (0.1–0.3), slows the rotor from 11.7 to 0.22 rev/s so the blades and LED rings read (0.28–0.72), swings the camera round the fan on keyframes, and spins back up (0.72–0.92). Four step lines rise in over 0.06 of scroll at each band and leave over 0.05; part labels pin to projected 3D anchors and fade over 0.05; a 2px cyan bar at the bottom tracks progress; the closing line fades up from 0.94. Phones (≤860px) and reduced motion skip the pin and keep the fan at full speed.
 - **Reveal:** the two footage grids rise in once (`translateY(18px)` → 0, staggered 60ms per tile via `--i`) when 10% enters the viewport with a -12% bottom margin.
 - **Hover:** footage tiles scale their video to 1.03 over 700ms.
 - **Reduced motion:** the auto-cycle stops and tabs stay manual; the global rule collapses all CSS animations and transitions to 0.01ms; reveal tiles render visible; in-view videos do not autoplay. The fan keeps spinning (the hologram does not exist without it).
