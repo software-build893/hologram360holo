@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { redirectTo } from "@/lib/http";
 import { isAdmin } from "@/lib/auth";
 import { setSetting } from "@/lib/db";
 
@@ -12,5 +13,5 @@ export async function POST(req: Request) {
   if (!Number.isFinite(rate) || rate < 0) return NextResponse.json({ error: "rate must be a number" }, { status: 422 });
   setSetting("rate_per_visitor", String(rate));
   setSetting("currency", currency);
-  return NextResponse.redirect(new URL(back.startsWith("/admin") ? back : "/admin", req.url), 303);
+  return redirectTo(req, back.startsWith("/admin") ? back : "/admin");
 }

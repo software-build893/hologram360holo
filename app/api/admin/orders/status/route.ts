@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { redirectTo } from "@/lib/http";
 import { isAdmin } from "@/lib/auth";
 import { setOrderStatus } from "@/lib/db";
 
@@ -10,5 +11,5 @@ export async function POST(req: Request) {
   const status = String(form.get("status"));
   if (!id || !["awaiting", "received", "done"].includes(status)) return NextResponse.json({ error: "bad request" }, { status: 422 });
   setOrderStatus(id, status as "awaiting" | "received" | "done");
-  return NextResponse.redirect(new URL("/admin?tab=orders", req.url), 303);
+  return redirectTo(req, "/admin?tab=orders");
 }

@@ -1,5 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { NextResponse } from "next/server";
+import { redirectTo } from "@/lib/http";
 import { isAdmin } from "@/lib/auth";
 import { createOrder, setOrderStatus } from "@/lib/db";
 import { offers } from "@/lib/content";
@@ -16,9 +17,9 @@ export async function POST(req: Request) {
   const note = String(form.get("note") ?? "").trim().slice(0, 1000);
   const items = form.getAll("items").map(String).filter((i) => ids.has(i));
   if (!business || !name) {
-    return NextResponse.redirect(new URL("/admin?tab=orders&error=business+and+contact+name+are+required", req.url), 303);
+    return redirectTo(req, "/admin?tab=orders&error=business+and+contact+name+are+required");
   }
   const token = randomBytes(18).toString("base64url");
   const order = createOrder({ token, business, name, email, items: items.length ? items : ["content"], note });
-  return NextResponse.redirect(new URL(`/admin?tab=orders&created=${order.id}`, req.url), 303);
+  return redirectTo(req, `/admin?tab=orders&created=${order.id}`);
 }
