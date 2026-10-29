@@ -1,0 +1,410 @@
+{
+  "regions": [
+    {
+      "id": "hero-environment",
+      "kind": "image",
+      "pixelBox": {
+        "x": 0,
+        "y": 0,
+        "w": 1344,
+        "h": 585
+      },
+      "bleed": true,
+      "note": "Photograph of a dim back bar at night, bottles on amber-lit shelves, out of focus and darkened; the empty room behind the fan, filling the whole hero behind nav, headline and tabs. Swaps per niche in the build; the fan itself is rendered live in WebGL on top."
+    },
+    {
+      "id": "fan",
+      "kind": "control",
+      "codeDrawn": true,
+      "pixelBox": {
+        "x": 425,
+        "y": 236,
+        "w": 494,
+        "h": 296
+      },
+      "note": "Live WebGL render (three.js) of the holographic LED fan: black hub, two LED blades spinning at 700 rpm, clear cover ring, drawn by code at runtime over the room photograph; the user asked for the same spinner as the live holo site, not a static fan."
+    },
+    {
+      "id": "nav-wordmark",
+      "kind": "text",
+      "pixelBox": {
+        "x": 58,
+        "y": 14,
+        "w": 212,
+        "h": 32
+      },
+      "note": "Wordmark: the brand name set in capitals as live type."
+    },
+    {
+      "id": "nav-link-how",
+      "kind": "text",
+      "pixelBox": {
+        "x": 476,
+        "y": 18,
+        "w": 92,
+        "h": 24
+      },
+      "note": "Nav link How it works, white."
+    },
+    {
+      "id": "nav-link-wild",
+      "kind": "text",
+      "pixelBox": {
+        "x": 622,
+        "y": 18,
+        "w": 74,
+        "h": 24
+      },
+      "note": "Nav link In the wild, white."
+    },
+    {
+      "id": "nav-link-kit",
+      "kind": "text",
+      "pixelBox": {
+        "x": 750,
+        "y": 18,
+        "w": 54,
+        "h": 24
+      },
+      "note": "Nav link The kit, white."
+    },
+    {
+      "id": "nav-link-prices",
+      "kind": "text",
+      "pixelBox": {
+        "x": 858,
+        "y": 18,
+        "w": 50,
+        "h": 24
+      },
+      "note": "Nav link Prices, white."
+    },
+    {
+      "id": "nav-cta",
+      "kind": "control",
+      "pixelBox": {
+        "x": 1156,
+        "y": 9,
+        "w": 124,
+        "h": 42
+      },
+      "note": "Cyan pill button Get a quote, dark text."
+    },
+    {
+      "id": "headline",
+      "kind": "text",
+      "pixelBox": {
+        "x": 370,
+        "y": 64,
+        "w": 604,
+        "h": 58
+      },
+      "note": "Headline Your logo, floating in mid-air. in white geometric sans, one line, centered."
+    },
+    {
+      "id": "subline",
+      "kind": "text",
+      "pixelBox": {
+        "x": 308,
+        "y": 128,
+        "w": 730,
+        "h": 24
+      },
+      "note": "Subline: one sentence of body copy naming the four niches the content is made for."
+    },
+    {
+      "id": "cta-primary",
+      "kind": "control",
+      "pixelBox": {
+        "x": 504,
+        "y": 159,
+        "w": 166,
+        "h": 44
+      },
+      "note": "Cyan pill button Request a quote with dark text."
+    },
+    {
+      "id": "cta-link",
+      "kind": "control",
+      "pixelBox": {
+        "x": 700,
+        "y": 168,
+        "w": 144,
+        "h": 28
+      },
+      "note": "Underlined white text link See it in the wild with a right arrow."
+    },
+    {
+      "id": "hologram",
+      "kind": "control",
+      "pixelBox": {
+        "x": 622,
+        "y": 210,
+        "w": 104,
+        "h": 262
+      },
+      "note": "The picture disc of the live WebGL fan: code renders the client's real hologram clip (Schaller Bros liquor, Zona Donut, juice logo, Aqua phone case) through the persistence-of-vision shader at this box, swapping with the niche tabs; the user chose 'My real client videos' over the comp's placeholder bottle.",
+      "codeDrawn": true
+    },
+    {
+      "id": "callout-rotor",
+      "kind": "text",
+      "pixelBox": {
+        "x": 888,
+        "y": 238,
+        "w": 144,
+        "h": 26
+      },
+      "note": "Callout label Two-blade rotor in white."
+    },
+    {
+      "id": "callout-cover",
+      "kind": "text",
+      "pixelBox": {
+        "x": 360,
+        "y": 398,
+        "w": 158,
+        "h": 26
+      },
+      "note": "Callout label Clear acrylic cover in white."
+    },
+    {
+      "id": "tabs",
+      "kind": "control",
+      "container": true,
+      "pixelBox": {
+        "x": 344,
+        "y": 520,
+        "w": 658,
+        "h": 64
+      },
+      "note": "Translucent dark band holding the four niche tabs with their underlines."
+    },
+    {
+      "id": "tab-liquor",
+      "kind": "control",
+      "parentId": "tabs",
+      "pixelBox": {
+        "x": 368,
+        "y": 530,
+        "w": 128,
+        "h": 44
+      },
+      "note": "Active tab Liquor store, white label, cyan progress underline."
+    },
+    {
+      "id": "tab-donut",
+      "kind": "control",
+      "parentId": "tabs",
+      "pixelBox": {
+        "x": 528,
+        "y": 530,
+        "w": 128,
+        "h": 44
+      },
+      "note": "Tab Donut shop, white label, grey hairline underline."
+    },
+    {
+      "id": "tab-juice",
+      "kind": "control",
+      "parentId": "tabs",
+      "pixelBox": {
+        "x": 688,
+        "y": 530,
+        "w": 128,
+        "h": 44
+      },
+      "note": "Tab Juice bar, white label, grey hairline underline."
+    },
+    {
+      "id": "tab-phone",
+      "kind": "control",
+      "parentId": "tabs",
+      "pixelBox": {
+        "x": 848,
+        "y": 530,
+        "w": 128,
+        "h": 44
+      },
+      "note": "Tab Phone shop, white label, grey hairline underline."
+    },
+    {
+      "id": "spec-diameter",
+      "kind": "text",
+      "pixelBox": {
+        "x": 56,
+        "y": 634,
+        "w": 104,
+        "h": 62
+      },
+      "note": "Spec item: line icon of a diameter symbol, value \u00d8 42 cm, label Fan diameter. The comp misspells the value as 2 cm; that is a comp defect."
+    },
+    {
+      "id": "spec-resolution",
+      "kind": "text",
+      "pixelBox": {
+        "x": 210,
+        "y": 634,
+        "w": 138,
+        "h": 62
+      },
+      "note": "Spec item: monitor line icon, value 1024 \u00d7 800 px, label Content resolution."
+    },
+    {
+      "id": "spec-leds",
+      "kind": "text",
+      "pixelBox": {
+        "x": 382,
+        "y": 634,
+        "w": 114,
+        "h": 62
+      },
+      "note": "Spec item: sun line icon, value 224 LEDs, label High brightness."
+    },
+    {
+      "id": "spec-viewing",
+      "kind": "text",
+      "pixelBox": {
+        "x": 532,
+        "y": 634,
+        "w": 112,
+        "h": 62
+      },
+      "note": "Spec item: angle line icon, value 150\u00b0, label Viewing angle."
+    },
+    {
+      "id": "spec-power",
+      "kind": "text",
+      "pixelBox": {
+        "x": 674,
+        "y": 634,
+        "w": 134,
+        "h": 62
+      },
+      "note": "Spec item: bolt line icon, value 20 W, label Power consumption."
+    },
+    {
+      "id": "spec-divider",
+      "kind": "chrome",
+      "pixelBox": {
+        "x": 828,
+        "y": 600,
+        "w": 10,
+        "h": 140
+      },
+      "note": "Vertical 1px grey hairline separating the specs strip from the offers."
+    },
+    {
+      "id": "offers-title",
+      "kind": "text",
+      "pixelBox": {
+        "x": 868,
+        "y": 612,
+        "w": 160,
+        "h": 22
+      },
+      "note": "Small white label Get started with your kit."
+    },
+    {
+      "id": "offer-fan",
+      "kind": "control",
+      "pixelBox": {
+        "x": 862,
+        "y": 636,
+        "w": 144,
+        "h": 94
+      },
+      "note": "Offer card on dark grey with 1px border: cyan fan line icon, title Fan + cover, price $250. The comp's duplicated garbled icon rows are a defect."
+    },
+    {
+      "id": "offer-content",
+      "kind": "control",
+      "pixelBox": {
+        "x": 1010,
+        "y": 636,
+        "w": 144,
+        "h": 94
+      },
+      "note": "Offer card: cyan play line icon, title Content, price $150. Garbled icon row in the comp is a defect."
+    },
+    {
+      "id": "offer-tripod",
+      "kind": "control",
+      "pixelBox": {
+        "x": 1158,
+        "y": 636,
+        "w": 144,
+        "h": 94
+      },
+      "note": "Offer card: cyan tripod line icon, title Tripod, price $99. Garbled icon row in the comp is a defect."
+    },
+    {
+      "id": "spec-rule-1",
+      "kind": "chrome",
+      "pixelBox": {
+        "x": 190,
+        "y": 640,
+        "w": 10,
+        "h": 52
+      },
+      "note": "Vertical 1px grey hairline between two spec items."
+    },
+    {
+      "id": "spec-rule-2",
+      "kind": "chrome",
+      "pixelBox": {
+        "x": 360,
+        "y": 640,
+        "w": 10,
+        "h": 52
+      },
+      "note": "Vertical 1px grey hairline between two spec items."
+    },
+    {
+      "id": "spec-rule-3",
+      "kind": "chrome",
+      "pixelBox": {
+        "x": 510,
+        "y": 640,
+        "w": 10,
+        "h": 52
+      },
+      "note": "Vertical 1px grey hairline between two spec items."
+    },
+    {
+      "id": "spec-rule-4",
+      "kind": "chrome",
+      "pixelBox": {
+        "x": 650,
+        "y": 640,
+        "w": 10,
+        "h": 52
+      },
+      "note": "Vertical 1px grey hairline between two spec items."
+    },
+    {
+      "id": "leader-rotor",
+      "kind": "chrome",
+      "codeDrawn": true,
+      "pixelBox": {
+        "x": 800,
+        "y": 262,
+        "w": 94,
+        "h": 56
+      },
+      "note": "Thin white callout rule with a small round end dot: from the right blade up to the right, then horizontal to the Two-blade rotor label; code draws it with CSS borders."
+    },
+    {
+      "id": "leader-cover",
+      "kind": "chrome",
+      "codeDrawn": true,
+      "pixelBox": {
+        "x": 456,
+        "y": 392,
+        "w": 142,
+        "h": 48
+      },
+      "note": "Thin white callout rule with a small round end dot: from the Clear acrylic cover label right, then up to the edge of the cover disc; code draws it with CSS borders."
+    }
+  ]
+}

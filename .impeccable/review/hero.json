@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 2,
+  "stage": "hero",
+  "id": "hero",
+  "title": "First viewport",
+  "comp": {
+    "path": ".impeccable/mocks/comp-combined-v2.png",
+    "width": 1344,
+    "height": 752
+  },
+  "components": [
+    {
+      "id": "first-viewport",
+      "name": "First viewport",
+      "medium": "HTML / CSS / WebGL",
+      "note": "Assembled first viewport of the Next.js page, captured from the dev server at 1344x752 with the Liquor store niche active (reduced motion). The fan is a live three.js render; the picture disc plays the Schaller Bros clip.",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1,
+        "h": 1
+      },
+      "preview": {
+        "kind": "image",
+        "path": ".impeccable/review/hero-repro.png"
+      },
+      "dependencies": []
+    }
+  ]
+}

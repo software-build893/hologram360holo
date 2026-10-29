@@ -1,0 +1,483 @@
+{
+  "schemaVersion": 3,
+  "stage": "components",
+  "id": "components",
+  "title": "Plan and asset review · app/page.tsx",
+  "comp": {
+    "path": ".impeccable/mocks/comp-combined-v2.png",
+    "width": 1344,
+    "height": 752
+  },
+  "specSha256": "f3d1e23993dd07dc4c2a44e6ce2405a6af97f7d777f991e5d3f2607c9fcff968",
+  "components": [
+    {
+      "id": "fan",
+      "name": "Fan",
+      "kind": "control",
+      "role": "plan",
+      "box": {
+        "x": 0.3162,
+        "y": 0.3138,
+        "w": 0.3676,
+        "h": 0.3936
+      },
+      "note": "Live WebGL render (three.js) of the holographic LED fan: black hub, two LED blades spinning at 700 rpm, clear cover ring, drawn by code at runtime over the room photograph; the user asked for the same spinner as the live holo site, not a static fan.",
+      "medium": "code",
+      "preview": {
+        "kind": "comp-crop"
+      },
+      "codeDrawn": true,
+      "dependencies": []
+    },
+    {
+      "id": "hologram",
+      "name": "Hologram",
+      "kind": "control",
+      "role": "plan",
+      "box": {
+        "x": 0.4628,
+        "y": 0.2793,
+        "w": 0.0774,
+        "h": 0.3484
+      },
+      "note": "The picture disc of the live WebGL fan: code renders the client's real hologram clip (Schaller Bros liquor, Zona Donut, juice logo, Aqua phone case) through the persistence-of-vision shader at this box, swapping with the niche tabs; the user chose 'My real client videos' over the comp's placeholder bottle.",
+      "medium": "code",
+      "preview": {
+        "kind": "comp-crop"
+      },
+      "codeDrawn": true,
+      "dependencies": []
+    },
+    {
+      "id": "leader-rotor",
+      "name": "Leader rotor",
+      "kind": "chrome",
+      "role": "plan",
+      "box": {
+        "x": 0.5952,
+        "y": 0.3484,
+        "w": 0.0699,
+        "h": 0.0745
+      },
+      "note": "Thin white callout rule with a small round end dot: from the right blade up to the right, then horizontal to the Two-blade rotor label; code draws it with CSS borders.",
+      "medium": "code",
+      "preview": {
+        "kind": "comp-crop"
+      },
+      "codeDrawn": true,
+      "dependencies": []
+    },
+    {
+      "id": "leader-cover",
+      "name": "Leader cover",
+      "kind": "chrome",
+      "role": "plan",
+      "box": {
+        "x": 0.3393,
+        "y": 0.5213,
+        "w": 0.1057,
+        "h": 0.0638
+      },
+      "note": "Thin white callout rule with a small round end dot: from the Clear acrylic cover label right, then up to the edge of the cover disc; code draws it with CSS borders.",
+      "medium": "code",
+      "preview": {
+        "kind": "comp-crop"
+      },
+      "codeDrawn": true,
+      "dependencies": []
+    },
+    {
+      "id": "hero-environment",
+      "name": "Hero environment",
+      "kind": "image",
+      "role": "asset",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1,
+        "h": 0.7779
+      },
+      "note": "Photograph of a dim back bar at night, bottles on amber-lit shelves, out of focus and darkened; the empty room behind the fan, filling the whole hero behind nav, headline and tabs. Swaps per niche in the build; the fan itself is rendered live in WebGL on top.",
+      "medium": "raster",
+      "preview": {
+        "kind": "image",
+        "path": "assets/plates/hero-environment.png"
+      },
+      "dependencies": []
+    }
+  ],
+  "codeRegions": [
+    {
+      "id": "nav-wordmark",
+      "name": "Nav wordmark",
+      "kind": "text",
+      "box": {
+        "x": 0.0432,
+        "y": 0.0186,
+        "w": 0.1577,
+        "h": 0.0426
+      },
+      "note": "Wordmark: the brand name set in capitals as live type."
+    },
+    {
+      "id": "nav-link-how",
+      "name": "Nav link how",
+      "kind": "text",
+      "box": {
+        "x": 0.3542,
+        "y": 0.0239,
+        "w": 0.0685,
+        "h": 0.0319
+      },
+      "note": "Nav link How it works, white."
+    },
+    {
+      "id": "nav-link-wild",
+      "name": "Nav link wild",
+      "kind": "text",
+      "box": {
+        "x": 0.4628,
+        "y": 0.0239,
+        "w": 0.0551,
+        "h": 0.0319
+      },
+      "note": "Nav link In the wild, white."
+    },
+    {
+      "id": "nav-link-kit",
+      "name": "Nav link kit",
+      "kind": "text",
+      "box": {
+        "x": 0.558,
+        "y": 0.0239,
+        "w": 0.0402,
+        "h": 0.0319
+      },
+      "note": "Nav link The kit, white."
+    },
+    {
+      "id": "nav-link-prices",
+      "name": "Nav link prices",
+      "kind": "text",
+      "box": {
+        "x": 0.6384,
+        "y": 0.0239,
+        "w": 0.0372,
+        "h": 0.0319
+      },
+      "note": "Nav link Prices, white."
+    },
+    {
+      "id": "nav-cta",
+      "name": "Nav cta",
+      "kind": "control",
+      "box": {
+        "x": 0.8601,
+        "y": 0.012,
+        "w": 0.0923,
+        "h": 0.0559
+      },
+      "note": "Cyan pill button Get a quote, dark text."
+    },
+    {
+      "id": "headline",
+      "name": "Headline",
+      "kind": "text",
+      "box": {
+        "x": 0.2753,
+        "y": 0.0851,
+        "w": 0.4494,
+        "h": 0.0771
+      },
+      "note": "Headline Your logo, floating in mid-air. in white geometric sans, one line, centered."
+    },
+    {
+      "id": "subline",
+      "name": "Subline",
+      "kind": "text",
+      "box": {
+        "x": 0.2292,
+        "y": 0.1702,
+        "w": 0.5432,
+        "h": 0.0319
+      },
+      "note": "Subline: one sentence of body copy naming the four niches the content is made for."
+    },
+    {
+      "id": "cta-primary",
+      "name": "Cta primary",
+      "kind": "control",
+      "box": {
+        "x": 0.375,
+        "y": 0.2114,
+        "w": 0.1235,
+        "h": 0.0585
+      },
+      "note": "Cyan pill button Request a quote with dark text."
+    },
+    {
+      "id": "cta-link",
+      "name": "Cta link",
+      "kind": "control",
+      "box": {
+        "x": 0.5208,
+        "y": 0.2234,
+        "w": 0.1071,
+        "h": 0.0372
+      },
+      "note": "Underlined white text link See it in the wild with a right arrow."
+    },
+    {
+      "id": "callout-rotor",
+      "name": "Callout rotor",
+      "kind": "text",
+      "box": {
+        "x": 0.6607,
+        "y": 0.3165,
+        "w": 0.1071,
+        "h": 0.0346
+      },
+      "note": "Callout label Two-blade rotor in white."
+    },
+    {
+      "id": "callout-cover",
+      "name": "Callout cover",
+      "kind": "text",
+      "box": {
+        "x": 0.2679,
+        "y": 0.5293,
+        "w": 0.1176,
+        "h": 0.0346
+      },
+      "note": "Callout label Clear acrylic cover in white."
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "kind": "control",
+      "box": {
+        "x": 0.256,
+        "y": 0.6915,
+        "w": 0.4896,
+        "h": 0.0851
+      },
+      "note": "Translucent dark band holding the four niche tabs with their underlines."
+    },
+    {
+      "id": "tab-liquor",
+      "name": "Tab liquor",
+      "kind": "control",
+      "box": {
+        "x": 0.2738,
+        "y": 0.7048,
+        "w": 0.0952,
+        "h": 0.0585
+      },
+      "note": "Active tab Liquor store, white label, cyan progress underline."
+    },
+    {
+      "id": "tab-donut",
+      "name": "Tab donut",
+      "kind": "control",
+      "box": {
+        "x": 0.3929,
+        "y": 0.7048,
+        "w": 0.0952,
+        "h": 0.0585
+      },
+      "note": "Tab Donut shop, white label, grey hairline underline."
+    },
+    {
+      "id": "tab-juice",
+      "name": "Tab juice",
+      "kind": "control",
+      "box": {
+        "x": 0.5119,
+        "y": 0.7048,
+        "w": 0.0952,
+        "h": 0.0585
+      },
+      "note": "Tab Juice bar, white label, grey hairline underline."
+    },
+    {
+      "id": "tab-phone",
+      "name": "Tab phone",
+      "kind": "control",
+      "box": {
+        "x": 0.631,
+        "y": 0.7048,
+        "w": 0.0952,
+        "h": 0.0585
+      },
+      "note": "Tab Phone shop, white label, grey hairline underline."
+    },
+    {
+      "id": "spec-diameter",
+      "name": "Spec diameter",
+      "kind": "text",
+      "box": {
+        "x": 0.0417,
+        "y": 0.8431,
+        "w": 0.0774,
+        "h": 0.0824
+      },
+      "note": "Spec item: line icon of a diameter symbol, value Ø 42 cm, label Fan diameter. The comp misspells the value as 2 cm; that is a comp defect."
+    },
+    {
+      "id": "spec-resolution",
+      "name": "Spec resolution",
+      "kind": "text",
+      "box": {
+        "x": 0.1563,
+        "y": 0.8431,
+        "w": 0.1027,
+        "h": 0.0824
+      },
+      "note": "Spec item: monitor line icon, value 1024 × 800 px, label Content resolution."
+    },
+    {
+      "id": "spec-leds",
+      "name": "Spec leds",
+      "kind": "text",
+      "box": {
+        "x": 0.2842,
+        "y": 0.8431,
+        "w": 0.0848,
+        "h": 0.0824
+      },
+      "note": "Spec item: sun line icon, value 224 LEDs, label High brightness."
+    },
+    {
+      "id": "spec-viewing",
+      "name": "Spec viewing",
+      "kind": "text",
+      "box": {
+        "x": 0.3958,
+        "y": 0.8431,
+        "w": 0.0833,
+        "h": 0.0824
+      },
+      "note": "Spec item: angle line icon, value 150°, label Viewing angle."
+    },
+    {
+      "id": "spec-power",
+      "name": "Spec power",
+      "kind": "text",
+      "box": {
+        "x": 0.5015,
+        "y": 0.8431,
+        "w": 0.0997,
+        "h": 0.0824
+      },
+      "note": "Spec item: bolt line icon, value 20 W, label Power consumption."
+    },
+    {
+      "id": "spec-divider",
+      "name": "Spec divider",
+      "kind": "chrome",
+      "box": {
+        "x": 0.6161,
+        "y": 0.7979,
+        "w": 0.0074,
+        "h": 0.1862
+      },
+      "note": "Vertical 1px grey hairline separating the specs strip from the offers."
+    },
+    {
+      "id": "offers-title",
+      "name": "Offers title",
+      "kind": "text",
+      "box": {
+        "x": 0.6458,
+        "y": 0.8138,
+        "w": 0.119,
+        "h": 0.0293
+      },
+      "note": "Small white label Get started with your kit."
+    },
+    {
+      "id": "offer-fan",
+      "name": "Offer fan",
+      "kind": "control",
+      "box": {
+        "x": 0.6414,
+        "y": 0.8457,
+        "w": 0.1071,
+        "h": 0.125
+      },
+      "note": "Offer card on dark grey with 1px border: cyan fan line icon, title Fan + cover, price $250. The comp's duplicated garbled icon rows are a defect."
+    },
+    {
+      "id": "offer-content",
+      "name": "Offer content",
+      "kind": "control",
+      "box": {
+        "x": 0.7515,
+        "y": 0.8457,
+        "w": 0.1071,
+        "h": 0.125
+      },
+      "note": "Offer card: cyan play line icon, title Content, price $150. Garbled icon row in the comp is a defect."
+    },
+    {
+      "id": "offer-tripod",
+      "name": "Offer tripod",
+      "kind": "control",
+      "box": {
+        "x": 0.8616,
+        "y": 0.8457,
+        "w": 0.1071,
+        "h": 0.125
+      },
+      "note": "Offer card: cyan tripod line icon, title Tripod, price $99. Garbled icon row in the comp is a defect."
+    },
+    {
+      "id": "spec-rule-1",
+      "name": "Spec rule 1",
+      "kind": "chrome",
+      "box": {
+        "x": 0.1414,
+        "y": 0.8511,
+        "w": 0.0074,
+        "h": 0.0691
+      },
+      "note": "Vertical 1px grey hairline between two spec items."
+    },
+    {
+      "id": "spec-rule-2",
+      "name": "Spec rule 2",
+      "kind": "chrome",
+      "box": {
+        "x": 0.2679,
+        "y": 0.8511,
+        "w": 0.0074,
+        "h": 0.0691
+      },
+      "note": "Vertical 1px grey hairline between two spec items."
+    },
+    {
+      "id": "spec-rule-3",
+      "name": "Spec rule 3",
+      "kind": "chrome",
+      "box": {
+        "x": 0.3795,
+        "y": 0.8511,
+        "w": 0.0074,
+        "h": 0.0691
+      },
+      "note": "Vertical 1px grey hairline between two spec items."
+    },
+    {
+      "id": "spec-rule-4",
+      "name": "Spec rule 4",
+      "kind": "chrome",
+      "box": {
+        "x": 0.4836,
+        "y": 0.8511,
+        "w": 0.0074,
+        "h": 0.0691
+      },
+      "note": "Vertical 1px grey hairline between two spec items."
+    }
+  ]
+}

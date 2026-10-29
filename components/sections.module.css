@@ -1,0 +1,609 @@
+/* Shared section grammar below the hero: one measure, one rhythm, headings heavier above than below. */
+.section {
+  position: relative;
+  padding: clamp(72px, 9vw, 128px) 0;
+  background: var(--bg);
+}
+.section + .section {
+  border-top: 1px solid var(--line);
+}
+.container {
+  width: min(100% - 48px, 1280px);
+  margin-inline: auto;
+}
+.head {
+  max-width: 62rem;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+.title {
+  margin: 0 0 14px;
+  font-size: clamp(32px, 4.4vw, 56px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.lede {
+  margin: 0;
+  max-width: 44rem;
+  font-size: clamp(17px, 1.45vw, 20px);
+  line-height: 1.5;
+  color: var(--fg-mute);
+  text-wrap: pretty;
+}
+
+/* ---------- How it works ---------- */
+.how {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+.howMedia {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #000;
+}
+.howMedia video,
+.howMedia img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.howCaption {
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.72);
+  font-size: 13px;
+  color: var(--fg);
+}
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+.step:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.stepIcon {
+  display: flex;
+  align-items: flex-start;
+  color: var(--accent);
+}
+.stepIcon svg {
+  width: 40px;
+  height: 40px;
+}
+.step h3 {
+  margin: 0 0 6px;
+  font-size: clamp(19px, 1.6vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.step p {
+  margin: 0;
+  color: var(--fg-mute);
+  line-height: 1.5;
+  max-width: 34rem;
+}
+
+/* ---------- In the wild ---------- */
+.wildGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.wildItem {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #000;
+  aspect-ratio: 3 / 4;
+}
+
+/* One authored entrance for the two footage grids: tiles rise into place once, staggered, from an already-visible ground. */
+.reveal > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+.reveal[data-in] > * {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal > * {
+    opacity: 1;
+    transform: none;
+  }
+}
+.wildItem video,
+.wildItem img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms var(--ease-out);
+}
+.wildItem:hover video,
+.wildItem:hover img {
+  transform: scale(1.03);
+}
+.wildLabel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 40px 16px 14px;
+  /* the one gradient on the page: a scrim so the place label stays legible over phone footage of lit shops */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  display: grid;
+  gap: 2px;
+}
+.wildPlace {
+  font-size: 15px;
+  font-weight: 600;
+}
+.wildWhere {
+  font-size: 13px;
+  color: rgba(244, 245, 245, 0.72);
+}
+
+/* ---------- Content reel ---------- */
+.reel {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px 18px;
+}
+.reelItem {
+  display: grid;
+  gap: 10px;
+}
+.reelDisc {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.8);
+}
+.reelDisc video,
+.reelDisc img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.reelTitle {
+  font-size: 15px;
+  font-weight: 600;
+}
+.reelNote {
+  font-size: 13px;
+  color: var(--fg-mute);
+}
+
+/* ---------- The kit ---------- */
+.kit {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+.kitImage {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #111;
+}
+.kitImage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.parts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.part {
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+.part:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.part h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.part p {
+  margin: 0;
+  color: var(--fg-mute);
+  line-height: 1.5;
+}
+.closeups {
+  margin-top: clamp(40px, 5vw, 72px);
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+.closeup {
+  display: grid;
+  gap: 8px;
+}
+.closeup img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 14px;
+  background: #111;
+}
+.closeupLabel {
+  font-size: 14px;
+  font-weight: 600;
+}
+.closeupNote {
+  font-size: 13px;
+  color: var(--fg-mute);
+}
+.box {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.boxTitle {
+  margin: 0 12px 0 0;
+  font-size: 15px;
+  color: var(--fg-mute);
+}
+.boxItem {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+/* ---------- Prices + quote ---------- */
+.prices {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+.offerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.offerRow {
+  display: grid;
+  grid-template-columns: 96px 1fr auto;
+  gap: 20px;
+  align-items: start;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+.offerRow:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.offerThumb {
+  width: 96px;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #000;
+}
+.offerRow h3 {
+  margin: 0 0 4px;
+  font-size: clamp(19px, 1.6vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.offerShort {
+  margin: 0 0 6px;
+  color: var(--fg);
+}
+.offerBody {
+  margin: 0;
+  color: var(--fg-mute);
+  line-height: 1.5;
+  max-width: 40rem;
+}
+.offerPriceCol {
+  text-align: right;
+  white-space: nowrap;
+}
+.offerPrice {
+  display: block;
+  font-size: clamp(24px, 2.2vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.offerPriceNote {
+  display: block;
+  font-size: 13px;
+  color: var(--fg-mute);
+}
+
+.quote {
+  position: sticky;
+  top: 24px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--bg-raised);
+}
+.quote h3 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.quoteLede {
+  margin: 0 0 18px;
+  color: var(--fg-mute);
+  font-size: 15px;
+}
+.picks {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.pick {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 200ms var(--ease-out), background 200ms var(--ease-out);
+}
+.pick:hover {
+  border-color: var(--line-soft);
+}
+.pick:has(input:checked) {
+  border-color: var(--accent);
+  background: rgba(12, 242, 243, 0.06);
+}
+.pick input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1.5px solid var(--line-soft);
+  border-radius: 6px;
+  display: grid;
+  place-content: center;
+  transition: background 150ms var(--ease-out), border-color 150ms var(--ease-out);
+}
+.pick input::before {
+  content: "";
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid var(--accent-ink);
+  border-bottom: 2px solid var(--accent-ink);
+  transform: rotate(-45deg) translate(1px, -1px) scale(0);
+  transition: transform 150ms var(--ease-out);
+}
+.pick input:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.pick input:checked::before {
+  transform: rotate(-45deg) translate(1px, -1px) scale(1);
+}
+.pickLabel {
+  font-weight: 500;
+}
+.pickPrice {
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-mute);
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 14px 0 18px;
+  border-top: 1px solid var(--line);
+  margin-bottom: 6px;
+}
+.totalLabel {
+  color: var(--fg-mute);
+}
+.totalValue {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.fields {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field span {
+  font-size: 13px;
+  color: var(--fg-mute);
+}
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 15px;
+  caret-color: var(--accent);
+  transition: border-color 150ms var(--ease-out);
+}
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--fg-dim);
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.field[data-invalid] input {
+  border-color: #ff6b6b;
+}
+.fieldError {
+  font-size: 13px;
+  color: #ff8a8a;
+}
+.submit {
+  width: 100%;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 200ms var(--ease-out), opacity 200ms var(--ease-out);
+}
+.submit:hover {
+  transform: translateY(-1px);
+}
+.submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+  transform: none;
+}
+.fine {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--fg-dim);
+  text-align: center;
+}
+.sent {
+  padding: 18px;
+  border-radius: 12px;
+  background: rgba(12, 242, 243, 0.08);
+  border: 1px solid rgba(12, 242, 243, 0.3);
+}
+.sent h4 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+.sent p {
+  margin: 0;
+  color: var(--fg-mute);
+  line-height: 1.5;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  padding: 40px 0 48px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+.footerRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--fg-mute);
+}
+.footerRow a {
+  color: var(--fg);
+}
+.footerRow a:hover {
+  color: var(--accent);
+}
+.footerNav {
+  display: flex;
+  gap: 22px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .wildGrid,
+  .reel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .closeups {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .how,
+  .kit,
+  .prices {
+    grid-template-columns: 1fr;
+  }
+  .quote {
+    position: static;
+  }
+}
+@media (max-width: 640px) {
+  .container {
+    width: min(100% - 32px, 1280px);
+  }
+  .wildGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .reel {
+    gap: 16px 12px;
+  }
+  .closeups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .offerRow {
+    grid-template-columns: 72px 1fr;
+  }
+  .offerThumb {
+    width: 72px;
+  }
+  .offerPriceCol {
+    grid-column: 2;
+    text-align: left;
+  }
+  .step {
+    grid-template-columns: 40px 1fr;
+    gap: 14px;
+  }
+  .stepIcon svg {
+    width: 30px;
+    height: 30px;
+  }
+  .quote {
+    padding: 20px;
+  }
+}

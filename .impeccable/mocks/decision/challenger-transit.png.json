@@ -1,0 +1,11 @@
+{
+  "prompt": "A desktop landing page for 3D Hologram Ads, a business that sells holographic LED fan displays to small shops and bars, rendered edge to edge with crisp readable text, no browser window or device around it. The visitor is a shop owner deciding whether to buy and must be able to request a quote.\n\nThe two reference images are style inspiration only, a midnight-blue enamel transit diagram, adapted into a real working product page; do not copy their layout or content. The page is a midnight enamel panel. Top bar: 3D HOLOGRAM ADS and navigation: How it works, In the wild, The kit, Prices, Get a quote. The hero is the offer drawn as a rail diagram: one scarlet line running left to right with four porcelain-white station ticks labelled with prices: Fan + cover $250, Content $150, Tripod $99, and a final interchange circle labelled Installed. A cobalt branch line leaves the interchange with stations named for the places it runs: Wine aisle, Back bar, Caf\u00e9 counter, Front window, Trade-show booth. Headline above the diagram in a humanist transit sans: One line from box to floating logo. At the interchange sits a small framed photo of a glowing 3D bottle floating in mid-air from the fan. On the right a journey-planner panel: tick boxes for the three items, a running total $400, and a scarlet button Request a quote. The bottom edge begins the next section, In the wild, with a photo of the fan in a wine aisle.\n\nNot a poster: a working web page with legible links, text, tick boxes and a button.",
+  "model": "gpt_image_2_5",
+  "tool": "higgsfield generate_image",
+  "aspect_ratio": "16:9",
+  "card": "challenger-transit",
+  "references": [
+    "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-midnight-transit-diagram.webp",
+    "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-midnight-transit-diagram-hero.webp"
+  ]
+}

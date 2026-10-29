@@ -1,0 +1,15 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-10-29T04:02:18.988Z",
+        "reason": "user confirmed: the user asked for the font Apple uses; SF Pro comes from the system stack on Apple devices and cannot be self-hosted, so Inter is the fallback face for other platforms only"
+      }
+    ]
+  },
+  "buildPath": "comp"
+}

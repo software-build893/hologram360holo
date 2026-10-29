@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Scaffold reference: comp-combined-v2.png</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cause:wght@700&display=swap">
+  <link rel="stylesheet" href="layout.css">
+  <style>html,body{margin:0}body{background:#0a0909}.region{box-sizing:border-box}.region.text p{white-space:pre-wrap}</style>
+</head>
+<body>
+<!-- Reference only. Every region sits at its measured box inside a comp-aspect frame. Take the boxes (layout.css), keep your own semantic structure. -->
+<main class="comp-frame" style="max-width:1344px">
+  <figure class="r-hero-environment region plate" data-region="hero-environment"><img src="../../../assets/plates/hero-environment.png" alt="" style="width:100%;height:100%;object-fit:contain;object-position:center"></figure>
+  <div class="r-fan region control" data-region="fan"><!-- Live WebGL render (three.js) of the holographic LED fan: black hub, two LED blades spinning at 700 rpm, clear cover ring, drawn by code at runtime over the room photograph; the user asked for the same spinner as the live holo site, not a static fan.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop fan); a control need not have button chrome --></div>
+  <div class="r-nav-wordmark region text" data-region="nav-wordmark"><!-- Wordmark: the brand name set in capitals as live type. --><p style="font-size:var(--r-nav-wordmark-font);line-height:1.05;margin:0">nav-wordmark</p></div>
+  <div class="r-nav-link-how region text" data-region="nav-link-how"><!-- Nav link How it works, white. --><p style="font-size:var(--r-nav-link-how-font);line-height:1.05;margin:0">nav-link-how</p></div>
+  <div class="r-nav-link-wild region text" data-region="nav-link-wild"><!-- Nav link In the wild, white. --><p style="font-size:var(--r-nav-link-wild-font);line-height:1.05;margin:0">nav-link-wild</p></div>
+  <div class="r-nav-link-kit region text" data-region="nav-link-kit"><!-- Nav link The kit, white. --><p style="font-size:var(--r-nav-link-kit-font);line-height:1.05;margin:0">nav-link-kit</p></div>
+  <div class="r-nav-link-prices region text" data-region="nav-link-prices"><!-- Nav link Prices, white. --><p style="font-size:var(--r-nav-link-prices-font);line-height:1.05;margin:0">nav-link-prices</p></div>
+  <div class="r-nav-cta region control" data-region="nav-cta"><!-- Cyan pill button Get a quote, dark text.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop nav-cta); a control need not have button chrome --></div>
+  <div class="r-headline region text" data-region="headline"><!-- Headline Your logo, floating in mid-air. in white geometric sans, one line, centered. --><p style="font-size:var(--r-headline-font);font-family:var(--r-headline-family),sans-serif;font-weight:var(--r-headline-weight);line-height:1.05;margin:0">headline</p></div>
+  <div class="r-subline region text" data-region="subline"><!-- Subline: one sentence of body copy naming the four niches the content is made for. --><p style="font-size:var(--r-subline-font);line-height:1.05;margin:0">subline</p></div>
+  <div class="r-cta-primary region control" data-region="cta-primary"><!-- Cyan pill button Request a quote with dark text.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop cta-primary); a control need not have button chrome --></div>
+  <div class="r-cta-link region control" data-region="cta-link"><!-- Underlined white text link See it in the wild with a right arrow.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop cta-link); a control need not have button chrome --></div>
+  <div class="r-hologram region control" data-region="hologram"><!-- The picture disc of the live WebGL fan: code renders the client's real hologram clip (Schaller Bros liquor, Zona Donut, juice logo, Aqua phone case) through the persistence-of-vision shader at this box, swapping with the niche tabs; the user chose 'My real client videos' over the comp's placeholder bottle.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop hologram); a control need not have button chrome --></div>
+  <div class="r-callout-rotor region text" data-region="callout-rotor"><!-- Callout label Two-blade rotor in white. --><p style="font-size:var(--r-callout-rotor-font);line-height:1.05;margin:0">callout-rotor</p></div>
+  <div class="r-callout-cover region text" data-region="callout-cover"><!-- Callout label Clear acrylic cover in white. --><p style="font-size:var(--r-callout-cover-font);line-height:1.05;margin:0">callout-cover</p></div>
+  <div class="r-tabs region control" data-region="tabs"><!-- Translucent dark band holding the four niche tabs with their underlines.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop tabs); a control need not have button chrome --></div>
+  <div class="r-tab-liquor region control" data-region="tab-liquor"><!-- Active tab Liquor store, white label, cyan progress underline.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop tab-liquor); a control need not have button chrome --></div>
+  <div class="r-tab-donut region control" data-region="tab-donut"><!-- Tab Donut shop, white label, grey hairline underline.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop tab-donut); a control need not have button chrome --></div>
+  <div class="r-tab-juice region control" data-region="tab-juice"><!-- Tab Juice bar, white label, grey hairline underline.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop tab-juice); a control need not have button chrome --></div>
+  <div class="r-tab-phone region control" data-region="tab-phone"><!-- Tab Phone shop, white label, grey hairline underline.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop tab-phone); a control need not have button chrome --></div>
+  <div class="r-spec-diameter region text" data-region="spec-diameter"><!-- Spec item: line icon of a diameter symbol, value Ø 42 cm, label Fan diameter. The comp misspells the value as 2 cm; that is a comp defect. --><p style="font-size:var(--r-spec-diameter-font);line-height:1.05;margin:0">spec-diameter</p></div>
+  <div class="r-spec-resolution region text" data-region="spec-resolution"><!-- Spec item: monitor line icon, value 1024 × 800 px, label Content resolution. --><p style="font-size:var(--r-spec-resolution-font);line-height:1.05;margin:0">spec-resolution</p></div>
+  <div class="r-spec-leds region text" data-region="spec-leds"><!-- Spec item: sun line icon, value 224 LEDs, label High brightness. --><p style="font-size:var(--r-spec-leds-font);line-height:1.05;margin:0">spec-leds</p></div>
+  <div class="r-spec-viewing region text" data-region="spec-viewing"><!-- Spec item: angle line icon, value 150°, label Viewing angle. --><p style="font-size:var(--r-spec-viewing-font);line-height:1.05;margin:0">spec-viewing</p></div>
+  <div class="r-spec-power region text" data-region="spec-power"><!-- Spec item: bolt line icon, value 20 W, label Power consumption. --><p style="font-size:var(--r-spec-power-font);line-height:1.05;margin:0">spec-power</p></div>
+  <div class="r-spec-divider region chrome" data-region="spec-divider"><!-- Vertical 1px grey hairline separating the specs strip from the offers. --></div>
+  <div class="r-offers-title region text" data-region="offers-title"><!-- Small white label Get started with your kit. --><p style="font-size:var(--r-offers-title-font);line-height:1.05;margin:0">offers-title</p></div>
+  <div class="r-offer-fan region control" data-region="offer-fan"><!-- Offer card on dark grey with 1px border: cyan fan line icon, title Fan + cover, price $250. The comp's duplicated garbled icon rows are a defect.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop offer-fan); a control need not have button chrome --></div>
+  <div class="r-offer-content region control" data-region="offer-content"><!-- Offer card: cyan play line icon, title Content, price $150. Garbled icon row in the comp is a defect.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop offer-content); a control need not have button chrome --></div>
+  <div class="r-offer-tripod region control" data-region="offer-tripod"><!-- Offer card: cyan tripod line icon, title Tripod, price $99. Garbled icon row in the comp is a defect.: match the control's lettering and visible shape to the crop (comp-spec.mjs --crop offer-tripod); a control need not have button chrome --></div>
+  <div class="r-spec-rule-1 region chrome" data-region="spec-rule-1"><!-- Vertical 1px grey hairline between two spec items. --></div>
+  <div class="r-spec-rule-2 region chrome" data-region="spec-rule-2"><!-- Vertical 1px grey hairline between two spec items. --></div>
+  <div class="r-spec-rule-3 region chrome" data-region="spec-rule-3"><!-- Vertical 1px grey hairline between two spec items. --></div>
+  <div class="r-spec-rule-4 region chrome" data-region="spec-rule-4"><!-- Vertical 1px grey hairline between two spec items. --></div>
+  <div class="r-leader-rotor region chrome" data-region="leader-rotor"><!-- Thin white callout rule with a small round end dot: from the right blade up to the right, then horizontal to the Two-blade rotor label; code draws it with CSS borders. --></div>
+  <div class="r-leader-cover region chrome" data-region="leader-cover"><!-- Thin white callout rule with a small round end dot: from the Clear acrylic cover label right, then up to the edge of the cover disc; code draws it with CSS borders. --></div>
+</main>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "title": "Approve the composition",
+  "question": "Three compositions of the category-standard landing page. Which one should the build match?",
+  "options": [
+    {
+      "id": "comp-canon",
+      "label": "Headline-led",
+      "kicker": "OPTION ONE",
+      "thesis": "Centered claim, the fan in a bar below it, three equal offer cards, a specs strip.",
+      "palette": ["#0A0A0A", "#FFFFFF", "#22D3EE"],
+      "materials": ["near-black ground", "product render", "clean grid"],
+      "viewport": "Nav; centered headline Your logo, floating in mid-air; subline; Request a quote and See it in the wild; wide photo of the fan on a bar wall with a floating bottle; three cards Fan + cover $250, Content $150, Tripod $99; specs strip.",
+      "risk": "The most familiar arrangement of the three; it wins on recognition and loses on memory.",
+      "comp": ".impeccable/mocks/decision/canon.png"
+    },
+    {
+      "id": "comp-product-led",
+      "label": "Product-led",
+      "kicker": "OPTION TWO",
+      "thesis": "The fan itself at life scale is the first viewport; the claim sits under it.",
+      "palette": ["#0A0A0A", "#FFFFFF", "#22D3EE"],
+      "materials": ["near-black ground", "hardware at scale", "callout lines"],
+      "viewport": "Nav; the 42 cm fan straight on filling the screen with a floating donut in front of the hub; callouts to rotor, LEDs and cover; headline bottom-left, Request a quote bottom-right; specs strip; How it works begins below.",
+      "risk": "Prices drop below the fold; the visitor sees the machine before the offer.",
+      "comp": ".impeccable/mocks/comp-product-led.png"
+    },
+    {
+      "id": "comp-offer-led",
+      "label": "Offer-led",
+      "kicker": "OPTION THREE",
+      "thesis": "The quote builder is the hero: three tiles with tick boxes and a running total.",
+      "palette": ["#0A0A0A", "#FFFFFF", "#22D3EE"],
+      "materials": ["near-black ground", "selectable tiles", "summary panel"],
+      "viewport": "Nav; headline Everything you need to float your logo; three tall tiles Fan + cover, Content, Tripod with photos and tick boxes; sticky summary with total and Request a quote; In the wild begins below.",
+      "risk": "Reads as a configurator before the visitor has seen the picture float; proof comes second.",
+      "comp": ".impeccable/mocks/comp-offer-led.png"
+    }
+  ],
+  "steer": true
+}

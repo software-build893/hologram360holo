@@ -1,0 +1,1 @@
+Sourced: Pinterest video supplied by the user for the hero, https://pin.it/2dxTlfg6l (pin 300896818875564457), segment 10–15 s, fitted to 720x720 on black; downloaded from v1.pinimg.com, re-encoded with ffmpeg (H.264, faststart, no audio). Poster frame at 1.0 s.

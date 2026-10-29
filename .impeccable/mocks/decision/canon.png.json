@@ -1,0 +1,8 @@
+{
+  "prompt": "A desktop landing page for 3D Hologram Ads, a business that sells holographic LED fan displays to small shops and bars, rendered edge to edge with crisp readable text, no browser window or device around it. The visitor is a shop owner deciding whether to buy and must be able to request a quote.\n\nThe standard hologram-technology product page, executed to the highest craft. Near-black ground, white text, one cyan accent. Top nav: 3D HOLOGRAM ADS with links How it works, In the wild, The kit, Prices, Get a quote, and a small cyan button Get a quote. Centered headline: Your logo, floating in mid-air. Subline: Holographic LED fan displays with custom 3D content for shops, bars and trade shows. Primary button Request a quote, secondary link See it in the wild. Below, a large photoreal render of the 42 cm holographic LED fan on a wall with a glowing 3D liquor bottle floating in front of it. Under that, three equal cards: Fan + cover $250, Content $150, Tripod $99, each with a short line and a Select button. Then a strip of small specs: \u00d8 42 cm, 1024 \u00d7 800 px, 224 LEDs, 150\u00b0 viewing, 20 W.\n\nClean grid, generous spacing, premium tech feel. Not a poster: a working web page with legible links, text and buttons.",
+  "model": "gpt_image_2_5",
+  "tool": "higgsfield generate_image",
+  "aspect_ratio": "16:9",
+  "card": "canon",
+  "references": []
+}

@@ -1,0 +1,1 @@
+Sourced: Pinterest video supplied by the user for the hero, https://pin.it/6WQQ6bjk3 (pin 114771490496564645); background removed with Higgsfield video_background_remover (pink studio ground to black), segment 1.8–6.0 s, centre 720x720 crop, re-encoded with ffmpeg (H.264, faststart, no audio). Poster frame at 0.6 s.

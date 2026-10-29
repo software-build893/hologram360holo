@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-29T04:42:00Z",
+  "title": "Design System: 3D Hologram Ads (althologram)",
+  "extensions": {
+    "colorMeta": {
+      "ground": { "role": "neutral", "displayName": "Ground", "canonical": "#0a0a0a", "tonalRamp": ["#0a0a0a", "#141414", "#262626", "#3f4042", "#6b6d6e", "#9a9c9f", "#c9cacb", "#f4f5f5"] },
+      "ground-raised": { "role": "neutral", "displayName": "Raised Ground", "canonical": "#141414", "tonalRamp": ["#0a0a0a", "#141414", "#262626", "#3f4042", "#6b6d6e", "#9a9c9f", "#c9cacb", "#f4f5f5"] },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "#262626", "tonalRamp": ["#0a0a0a", "#141414", "#262626", "#3f4042", "#6b6d6e", "#9a9c9f", "#c9cacb", "#f4f5f5"] },
+      "hairline-soft": { "role": "neutral", "displayName": "Soft Hairline", "canonical": "#3f4042", "tonalRamp": ["#0a0a0a", "#141414", "#262626", "#3f4042", "#6b6d6e", "#9a9c9f", "#c9cacb", "#f4f5f5"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#f4f5f5", "tonalRamp": ["#0a0a0a", "#141414", "#262626", "#3f4042", "#6b6d6e", "#9a9c9f", "#c9cacb", "#f4f5f5"] },
+      "ink-mute": { "role": "neutral", "displayName": "Muted Ink", "canonical": "#9a9c9f", "tonalRamp": ["#0a0a0a", "#141414", "#262626", "#3f4042", "#6b6d6e", "#9a9c9f", "#c9cacb", "#f4f5f5"] },
+      "ink-dim": { "role": "neutral", "displayName": "Dim Ink", "canonical": "#6b6d6e", "tonalRamp": ["#0a0a0a", "#141414", "#262626", "#3f4042", "#6b6d6e", "#9a9c9f", "#c9cacb", "#f4f5f5"] },
+      "cyan": { "role": "primary", "displayName": "Hologram Cyan", "canonical": "#0cf2f3", "tonalRamp": ["oklch(22% 0.05 196)", "oklch(35% 0.08 196)", "oklch(50% 0.11 196)", "oklch(65% 0.13 196)", "oklch(78% 0.14 196)", "oklch(88% 0.14 196)", "oklch(93% 0.08 196)", "oklch(97% 0.03 196)"] },
+      "cyan-lift": { "role": "primary", "displayName": "Hologram Cyan, lifted", "canonical": "#3ff5f6", "tonalRamp": ["oklch(22% 0.05 196)", "oklch(35% 0.08 196)", "oklch(50% 0.11 196)", "oklch(65% 0.13 196)", "oklch(78% 0.14 196)", "oklch(88% 0.14 196)", "oklch(93% 0.08 196)", "oklch(97% 0.03 196)"] },
+      "cyan-ink": { "role": "primary", "displayName": "Cyan Ink", "canonical": "#061314", "tonalRamp": ["oklch(12% 0.02 196)", "oklch(22% 0.05 196)", "oklch(35% 0.08 196)", "oklch(50% 0.11 196)", "oklch(65% 0.13 196)", "oklch(78% 0.14 196)", "oklch(88% 0.14 196)", "oklch(97% 0.03 196)"] },
+      "media-black": { "role": "neutral", "displayName": "Media Black", "canonical": "#000000", "tonalRamp": ["#000000", "#0a0a0a", "#111111", "#141414", "#262626", "#3f4042", "#6b6d6e", "#9a9c9f"] },
+      "cutout-ground": { "role": "neutral", "displayName": "Cutout Ground", "canonical": "#111111", "tonalRamp": ["#000000", "#0a0a0a", "#111111", "#141414", "#262626", "#3f4042", "#6b6d6e", "#9a9c9f"] },
+      "error-stroke": { "role": "tertiary", "displayName": "Error Stroke", "canonical": "#ff6b6b", "tonalRamp": ["oklch(25% 0.09 25)", "oklch(38% 0.14 25)", "oklch(50% 0.18 25)", "oklch(62% 0.2 25)", "oklch(72% 0.17 25)", "oklch(82% 0.12 25)", "oklch(90% 0.07 25)", "oklch(96% 0.03 25)"] },
+      "error-text": { "role": "tertiary", "displayName": "Error Text", "canonical": "#ff8a8a", "tonalRamp": ["oklch(25% 0.09 25)", "oklch(38% 0.14 25)", "oklch(50% 0.18 25)", "oklch(62% 0.2 25)", "oklch(72% 0.17 25)", "oklch(82% 0.12 25)", "oklch(90% 0.07 25)", "oklch(96% 0.03 25)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The hero claim only; sized in comp units (44 * --u), clamp(32px, 9vw, 42px) under 860px." },
+      "headline": { "displayName": "Headline", "purpose": "One per section, balanced, max-width 62rem." },
+      "title": { "displayName": "Title", "purpose": "Step headings, offer titles, the quote panel heading; smaller 600-weight titles (17/15/14px) for parts, footage and close-ups." },
+      "lede": { "displayName": "Lede", "purpose": "The muted paragraph under each section headline, max 44rem." },
+      "body": { "displayName": "Body", "purpose": "Step and offer copy in muted ink, 34-40rem measure." },
+      "figure": { "displayName": "Figure", "purpose": "Prices, totals and spec values; the only use of weight 700, always tabular." },
+      "label": { "displayName": "Label", "purpose": "Captions, field labels, notes, fine print; muted or dim ink." }
+    },
+    "shadows": [
+      { "name": "disc-drop", "value": "0 24px 48px -24px rgba(0, 0, 0, 0.8)", "purpose": "Under the eight circular reel discs only; lifts media, never UI." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The single easing curve for every transition and the reveal." },
+      { "name": "duration-tap", "value": "150ms", "purpose": "Checkbox fill, input border on focus." },
+      { "name": "duration-colour", "value": "200ms", "purpose": "Link and nav colour, pill background, offer-row border." },
+      { "name": "duration-tab", "value": "250ms", "purpose": "Tab label colour." },
+      { "name": "duration-lift", "value": "300ms", "purpose": "Pill translateY(-1px) on hover." },
+      { "name": "duration-tile", "value": "700ms", "purpose": "Footage tile zoom to 1.03 and reveal opacity." },
+      { "name": "duration-plate", "value": "900ms", "purpose": "Hero room-plate crossfade and reveal rise." },
+      { "name": "niche-interval", "value": "5000ms linear", "purpose": "Auto-cycle period; the tab progress underline fills over exactly this span." },
+      { "name": "reveal-stagger", "value": "60ms per tile (--i)", "purpose": "Footage and reel grids rise in once, staggered, on intersection." },
+      { "name": "fan-speed", "value": "11.7 rev/s (700 rpm)", "purpose": "Rotor speed in the WebGL fan; not reduced for prefers-reduced-motion." },
+      { "name": "reduced-motion", "value": "animation/transition 0.01ms; auto-cycle off; in-view video autoplay off; reveal tiles visible", "purpose": "prefers-reduced-motion handling." }
+    ],
+    "breakpoints": [
+      { "name": "phone-container", "value": "640px" },
+      { "name": "hero-flow", "value": "860px" },
+      { "name": "single-column", "value": "1024px" },
+      { "name": "container-max", "value": "1280px" },
+      { "name": "hero-comp-width", "value": "1344px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The cyan pill: hero CTA, nav pill and form submit. Lifts 1px and brightens on hover.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#quote\">Request a quote</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 22px; border: 0; border-radius: 999px; background: var(--accent, #0cf2f3); color: var(--accent-ink, #061314); font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, sans-serif); font-size: 15px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), background 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover { transform: translateY(-1px); background: #3ff5f6; } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent, #0cf2f3); outline-offset: 3px; }"
+    },
+    {
+      "name": "Arrow Link",
+      "kind": "button",
+      "refersTo": "link-arrow",
+      "description": "The secondary action: underlined text with a 1.6-stroke arrow; whole link turns cyan on hover.",
+      "html": "<a class=\"ds-link-arrow\" href=\"#wild\"><span class=\"ds-link-arrow__text\">See it in the wild</span><svg class=\"ds-link-arrow__icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-link-arrow { display: inline-flex; align-items: center; gap: 8px; height: 24px; color: var(--fg, #f4f5f5); font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, sans-serif); font-size: 14px; font-weight: 500; text-decoration: none; transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-link-arrow__text { padding-bottom: 3px; border-bottom: 1px solid rgba(244, 245, 245, 0.75); transition: border-color 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-link-arrow__icon { width: 16px; height: 16px; } .ds-link-arrow:hover { color: var(--accent, #0cf2f3); } .ds-link-arrow:hover .ds-link-arrow__text { border-color: var(--accent, #0cf2f3); } .ds-link-arrow:focus-visible { outline: 2px solid var(--accent, #0cf2f3); outline-offset: 3px; border-radius: 4px; }"
+    },
+    {
+      "name": "Niche Tabs",
+      "kind": "nav",
+      "refersTo": "tab-niche",
+      "description": "Segmented text tabs with a 2px track; the active tab's cyan underline fills over 5 s while cycling.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\" data-active data-cycling>Liquor store</button><button class=\"ds-tab\" role=\"tab\">Donut shop</button><button class=\"ds-tab\" role=\"tab\">Juice bar</button><button class=\"ds-tab\" role=\"tab\">Phone shop</button></div>",
+      "css": ".ds-tabs { display: flex; gap: 22px; } .ds-tab { position: relative; height: 36px; padding: 0 2px; border: 0; background: none; cursor: pointer; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, sans-serif); font-size: 15px; font-weight: 400; letter-spacing: -0.01em; color: rgba(244, 245, 245, 0.72); white-space: nowrap; transition: color 250ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-tab:hover { color: var(--accent, #0cf2f3); } .ds-tab[data-active] { color: var(--fg, #f4f5f5); } .ds-tab::before, .ds-tab::after { content: ''; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: rgba(244, 245, 245, 0.22); } .ds-tab::after { background: var(--accent, #0cf2f3); width: 0; } .ds-tab[data-active]::after { width: 100%; } .ds-tab[data-active][data-cycling]::after { animation: ds-tab-fill 5000ms linear forwards; } @keyframes ds-tab-fill { from { width: 0; } to { width: 100%; } } .ds-tab:focus-visible { outline: 2px solid var(--accent, #0cf2f3); outline-offset: 3px; border-radius: 4px; }"
+    },
+    {
+      "name": "Specs Strip",
+      "kind": "custom",
+      "refersTo": "specs-strip",
+      "description": "Hairline-divided spec cells: 1.6-stroke cyan line icon, bold tabular value, dim label.",
+      "html": "<dl class=\"ds-specs\"><div><span class=\"ds-specs__icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M5 19 19 5\"/></svg></span><dt class=\"ds-specs__label\">Fan diameter</dt><dd class=\"ds-specs__value\">Ø 42 cm</dd></div><div><span class=\"ds-specs__icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3.5\"/><path d=\"M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4\"/></svg></span><dt class=\"ds-specs__label\">High brightness</dt><dd class=\"ds-specs__value\">224 LEDs</dd></div><div><span class=\"ds-specs__icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M13 3 5 14h6l-1 7 8-11h-6z\"/></svg></span><dt class=\"ds-specs__label\">Power consumption</dt><dd class=\"ds-specs__value\">20 W</dd></div></dl>",
+      "css": ".ds-specs { margin: 0; display: flex; justify-content: center; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, sans-serif); } .ds-specs > div { display: grid; grid-template-columns: 26px 1fr; grid-template-rows: auto auto; column-gap: 10px; align-content: center; padding: 0 34px; border-left: 1px solid var(--line, #262626); } .ds-specs > div:first-child { border-left: 0; } .ds-specs__icon { grid-row: 1 / span 2; display: flex; align-items: center; color: var(--accent, #0cf2f3); } .ds-specs__icon svg { width: 22px; height: 22px; } .ds-specs__value { grid-row: 1; grid-column: 2; margin: 0; font-size: 17px; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; white-space: nowrap; color: var(--fg, #f4f5f5); font-variant-numeric: tabular-nums; } .ds-specs__label { grid-row: 2; grid-column: 2; font-size: 11px; line-height: 1.4; white-space: nowrap; color: var(--fg-dim, #6b6d6e); }"
+    },
+    {
+      "name": "Offer Row",
+      "kind": "card",
+      "refersTo": "offer-row",
+      "description": "Hairline-divided list row: 14px-radius thumbnail, title and body, bold tabular price on the right.",
+      "html": "<ul class=\"ds-offers\"><li class=\"ds-offer\"><span class=\"ds-offer__thumb\"></span><div><h3 class=\"ds-offer__title\">Fan + cover</h3><p class=\"ds-offer__short\">PD42 holographic LED fan, 42 cm, with its clear acrylic cover.</p><p class=\"ds-offer__body\">Two-blade rotor, 1024 × 800 picture, Wi-Fi and app control plus an infrared remote.</p></div><div class=\"ds-offer__pricecol\"><span class=\"ds-offer__price\">$250</span><span class=\"ds-offer__note\">fan and cover together</span></div></li><li class=\"ds-offer\"><span class=\"ds-offer__thumb\"></span><div><h3 class=\"ds-offer__title\">Tripod</h3><p class=\"ds-offer__short\">A floor stand for spots with no wall.</p></div><div class=\"ds-offer__pricecol\"><span class=\"ds-offer__price\">$99</span><span class=\"ds-offer__note\">adjustable stand, 35–71 in</span></div></li></ul>",
+      "css": ".ds-offers { list-style: none; margin: 0; padding: 0; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, sans-serif); color: var(--fg, #f4f5f5); } .ds-offer { display: grid; grid-template-columns: 96px 1fr auto; gap: 20px; align-items: start; padding: 22px 0; border-top: 1px solid var(--line, #262626); } .ds-offer:last-child { border-bottom: 1px solid var(--line, #262626); } .ds-offer__thumb { display: block; width: 96px; aspect-ratio: 1; border-radius: 14px; background: #000; } .ds-offer__title { margin: 0 0 4px; font-size: 22px; font-weight: 600; letter-spacing: -0.015em; } .ds-offer__short { margin: 0 0 6px; } .ds-offer__body { margin: 0; color: var(--fg-mute, #9a9c9f); line-height: 1.5; max-width: 40rem; } .ds-offer__pricecol { text-align: right; white-space: nowrap; } .ds-offer__price { display: block; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; } .ds-offer__note { display: block; font-size: 13px; color: var(--fg-mute, #9a9c9f); }"
+    },
+    {
+      "name": "Quote Panel",
+      "kind": "card",
+      "refersTo": "card-quote",
+      "description": "The one raised surface: form with custom checkbox pick rows, a hairline total, and the cyan submit.",
+      "html": "<form class=\"ds-quote\"><h3 class=\"ds-quote__title\">Request a quote</h3><p class=\"ds-quote__lede\">Pick what you need. We confirm, then you pay; no card today.</p><div class=\"ds-quote__picks\"><label class=\"ds-pick\"><input type=\"checkbox\" checked><span class=\"ds-pick__label\">Fan + cover</span><span class=\"ds-pick__price\">$250</span></label><label class=\"ds-pick\"><input type=\"checkbox\"><span class=\"ds-pick__label\">Tripod</span><span class=\"ds-pick__price\">$99</span></label></div><div class=\"ds-quote__total\"><span class=\"ds-quote__totallabel\">Total</span><span class=\"ds-quote__totalvalue\">$250</span></div><button class=\"ds-quote__submit\" type=\"button\">Request a quote · $250</button><p class=\"ds-quote__fine\">No account, no card. We reply by email.</p></form>",
+      "css": ".ds-quote { padding: 26px; border: 1px solid var(--line, #262626); border-radius: 20px; background: var(--bg-raised, #141414); color: var(--fg, #f4f5f5); font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, sans-serif); } .ds-quote__title { margin: 0 0 4px; font-size: 22px; font-weight: 600; letter-spacing: -0.015em; } .ds-quote__lede { margin: 0 0 18px; color: var(--fg-mute, #9a9c9f); font-size: 15px; } .ds-quote__picks { display: grid; gap: 8px; margin-bottom: 18px; } .ds-pick { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid var(--line, #262626); border-radius: 12px; cursor: pointer; transition: border-color 200ms cubic-bezier(0.16, 1, 0.3, 1), background 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-pick:hover { border-color: var(--line-soft, #3f4042); } .ds-pick:has(input:checked) { border-color: var(--accent, #0cf2f3); background: rgba(12, 242, 243, 0.06); } .ds-pick input { appearance: none; width: 20px; height: 20px; margin: 0; border: 1.5px solid var(--line-soft, #3f4042); border-radius: 6px; display: grid; place-content: center; transition: background 150ms cubic-bezier(0.16, 1, 0.3, 1), border-color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-pick input::before { content: ''; width: 10px; height: 6px; border-left: 2px solid var(--accent-ink, #061314); border-bottom: 2px solid var(--accent-ink, #061314); transform: rotate(-45deg) translate(1px, -1px) scale(0); transition: transform 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-pick input:checked { background: var(--accent, #0cf2f3); border-color: var(--accent, #0cf2f3); } .ds-pick input:checked::before { transform: rotate(-45deg) translate(1px, -1px) scale(1); } .ds-pick input:focus-visible { outline: 2px solid var(--accent, #0cf2f3); outline-offset: 3px; } .ds-pick__label { font-weight: 500; } .ds-pick__price { font-variant-numeric: tabular-nums; color: var(--fg-mute, #9a9c9f); } .ds-quote__total { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0 18px; border-top: 1px solid var(--line, #262626); margin-bottom: 6px; } .ds-quote__totallabel { color: var(--fg-mute, #9a9c9f); } .ds-quote__totalvalue { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; } .ds-quote__submit { width: 100%; padding: 14px 18px; border: 0; border-radius: 999px; background: var(--accent, #0cf2f3); color: var(--accent-ink, #061314); font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-quote__submit:hover { transform: translateY(-1px); } .ds-quote__submit:disabled { opacity: 0.6; cursor: progress; transform: none; } .ds-quote__submit:focus-visible { outline: 2px solid var(--accent, #0cf2f3); outline-offset: 3px; } .ds-quote__fine { margin: 12px 0 0; font-size: 13px; color: var(--fg-dim, #6b6d6e); text-align: center; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Ground-coloured field with a hairline, cyan caret and cyan focus border; error state in warm red.",
+      "html": "<label class=\"ds-field\"><span>Business</span><input placeholder=\"Schaller Bros Liquor\"></label><label class=\"ds-field\" data-invalid><span>Email</span><input placeholder=\"you@yourshop.com\"><span class=\"ds-field__error\">That email doesn't look complete.</span></label>",
+      "css": ".ds-field { display: grid; gap: 6px; margin-bottom: 10px; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, sans-serif); } .ds-field > span { font-size: 13px; color: var(--fg-mute, #9a9c9f); } .ds-field input { width: 100%; padding: 12px 14px; border: 1px solid var(--line, #262626); border-radius: 10px; background: var(--bg, #0a0a0a); color: var(--fg, #f4f5f5); font: inherit; font-size: 15px; caret-color: var(--accent, #0cf2f3); transition: border-color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-field input::placeholder { color: var(--fg-dim, #6b6d6e); } .ds-field input:focus { outline: none; border-color: var(--accent, #0cf2f3); } .ds-field[data-invalid] input { border-color: #ff6b6b; } .ds-field__error { font-size: 13px; color: #ff8a8a; }"
+    },
+    {
+      "name": "Box Chip",
+      "kind": "chip",
+      "refersTo": "chip-box",
+      "description": "Static hairline pill listing what is in the box; no fill, no state.",
+      "html": "<div class=\"ds-box\"><p class=\"ds-box__title\">In the box</p><span class=\"ds-chip\">PD42 fan unit</span><span class=\"ds-chip\">Acrylic cover</span><span class=\"ds-chip\">Infrared remote</span></div>",
+      "css": ".ds-box { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, sans-serif); color: var(--fg, #f4f5f5); } .ds-box__title { margin: 0 12px 0 0; font-size: 15px; color: var(--fg-mute, #9a9c9f); } .ds-chip { padding: 8px 14px; border: 1px solid var(--line, #262626); border-radius: 999px; font-size: 14px; }"
+    },
+    {
+      "name": "Footage Tile",
+      "kind": "card",
+      "refersTo": "tile-footage",
+      "description": "3:4 black well with a 16px radius, a bottom scrim for the place label, and a 1.03 zoom on hover.",
+      "html": "<div class=\"ds-tile\"><div class=\"ds-tile__media\"></div><div class=\"ds-tile__label\"><span class=\"ds-tile__place\">Cocktail bar</span><span class=\"ds-tile__where\">Back bar shelf</span></div></div>",
+      "css": ".ds-tile { position: relative; overflow: hidden; border-radius: 16px; background: #000; aspect-ratio: 3 / 4; width: 240px; font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, sans-serif); color: var(--fg, #f4f5f5); } .ds-tile__media { position: absolute; inset: 0; background: #1a1a1a; transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-tile:hover .ds-tile__media { transform: scale(1.03); } .ds-tile__label { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 16px 14px; background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)); display: grid; gap: 2px; } .ds-tile__place { font-size: 15px; font-weight: 600; } .ds-tile__where { font-size: 13px; color: rgba(244, 245, 245, 0.72); }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "button-nav",
+      "description": "Wordmark with cyan '3D', four weight-500 links that turn cyan on hover, and the cyan Get-a-quote pill.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav__wordmark\" href=\"#top\"><span class=\"ds-nav__accent\">3D</span> HOLOGRAM ADS</a><nav class=\"ds-nav__links\"><a href=\"#how\">How it works</a><a href=\"#wild\">In the wild</a><a href=\"#kit\">The kit</a><a href=\"#prices\">Prices</a></nav><a class=\"ds-nav__cta\" href=\"#quote\">Get a quote</a></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 32px; height: 60px; padding: 0 24px; background: var(--bg, #0a0a0a); font-family: var(--font, -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, sans-serif); } .ds-nav__wordmark { font-size: 21px; line-height: 32px; font-weight: 500; letter-spacing: 0.02em; white-space: nowrap; color: var(--fg, #f4f5f5); text-decoration: none; } .ds-nav__accent { color: var(--accent, #0cf2f3); } .ds-nav__links { display: flex; gap: 28px; } .ds-nav__links a { font-size: 15px; line-height: 24px; font-weight: 500; letter-spacing: -0.01em; white-space: nowrap; color: var(--fg, #f4f5f5); text-decoration: none; transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav__links a:hover { color: var(--accent, #0cf2f3); } .ds-nav__cta { display: inline-flex; align-items: center; justify-content: center; width: 124px; height: 42px; border-radius: 999px; background: var(--accent, #0cf2f3); color: var(--accent-ink, #061314); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), background 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav__cta:hover { transform: translateY(-1px); background: #3ff5f6; } .ds-nav a:focus-visible { outline: 2px solid var(--accent, #0cf2f3); outline-offset: 3px; border-radius: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Showroom After Hours",
+    "overview": "A premium-hardware product page in the Apple and Dyson register, played straight. The ground is near-black and matte; the only light on it comes from the product. The fan is not a photograph: it is rendered live in WebGL at life scale, spinning at 700 rpm with a persistence-of-vision disc, an LED streak and a clear cover drawn as reflections only, over a darkened room plate that changes with the niche. Everything else on the page is quiet so that the one glowing thing reads as the argument.\n\nDensity is low and the measure is wide. Sections are separated by hairlines, not by surface changes; the page is one continuous near-black sheet with a single raised panel (the quote form). Type is one system sans at two weights, tight-tracked above 19px, with tabular figures wherever a number does work. The accent is a single electric cyan reserved for the action, the active tab, line icons, the wordmark's \"3D\", and focus. Depth is almost entirely tonal; the single shadow on the page sits under the content-reel discs, and the single gradient is a legibility scrim over phone footage.\n\nImagery is the proof. Field clips and client reels are real and unretouched; the hero's room plates and hologram loops are generated so they carry no third-party brand, and each generated raster ships with a provenance JSON beside it.",
+    "keyCharacteristics": [
+      "Near-black ground with one cyan voice; no secondary accent.",
+      "One system sans (SF Pro on Apple devices, self-hosted Inter elsewhere) at 400/500/600/700.",
+      "A measured hero frame: every box in 1344-wide comp pixels, scaling with the viewport, reflowing to a column under 860px.",
+      "Hairline dividers (1px #262626) do the structural work; borders replace shadows.",
+      "Pill buttons, underlined arrow links, segmented tabs with a cyan progress underline.",
+      "Live three.js fan; real footage in rounded tiles and circular discs; generated plates behind the hero only.",
+      "Motion is slow and eased-out (cubic-bezier(0.16, 1, 0.3, 1)); the niche cycle is the one signature interaction."
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Cyan is the only accent. It marks the action, the active state, the icon stroke and focus; it never fills a card, never tints a heading, and never appears at full strength as a surface larger than a button.", "section": "colors" },
+      { "name": "The Grey Ink Rule", "body": "Hierarchy below the headline is carried by three greys (ink, muted, dim) and translucent white, not by size or weight changes alone.", "section": "colors" },
+      { "name": "The Bold-Is-Numeric Rule", "body": "Weight 700 appears only on figures (prices, specs, totals), always with tabular numerals. Headings stop at 600.", "section": "typography" },
+      { "name": "The No-Eyebrow Rule", "body": "Sections open with the headline itself. There are no kickers, eyebrows, or uppercase micro-labels above headings; the only uppercase text is the wordmark.", "section": "typography" },
+      { "name": "The Hairline Rule", "body": "Structure is drawn with 1px #262626 lines, not with surface changes or shadows. A new surface tone is justified only for an interactive panel (the quote form) or a media well.", "section": "elevation" },
+      { "name": "The One Gradient Rule", "body": "The only CSS gradient on the page is the footage-tile scrim (linear-gradient(to top, rgba(0,0,0,0.75), transparent)) and it exists for label legibility over phone footage. Gradients are never decorative.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep cyan to actions, active states, icon strokes and focus; one accent, one voice.",
+      "Do draw structure with 1px #262626 hairlines and reserve #141414 for the single interactive panel.",
+      "Do size every hero element in comp units (calc(N * var(--u))) and release to --u: 1px flex flow under 860px.",
+      "Do set figures in weight 700 with tabular numerals and headings in 600 with negative tracking.",
+      "Do back every clip, disc and thumbnail with #000 so letterboxing vanishes.",
+      "Do use the shared ease-out curve and the 150–900ms duration ladder for any new transition.",
+      "Do ship generated rasters with a provenance JSON beside the asset (as public/assets/env/*.webp.json does)."
+    ],
+    "donts": [
+      "Don't add gradients, glows, blur or glass in CSS; light belongs to the rendered hologram and the footage, and the only scrim is the footage-label gradient.",
+      "Don't add a second accent, a tinted heading, or a cyan surface larger than a pill.",
+      "Don't put kickers, eyebrows or uppercase labels above headings.",
+      "Don't use drop shadows for hierarchy; the reel-disc shadow is the single exception and it lifts media, not UI.",
+      "Don't use client clips in the hero; the hero plays brand-free generated loops because the real client reels carry other businesses' marks.",
+      "Don't introduce a display face or a monospace; one system sans at four weights is the whole type system."
+    ]
+  }
+}

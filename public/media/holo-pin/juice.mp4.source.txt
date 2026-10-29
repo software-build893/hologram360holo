@@ -1,0 +1,1 @@
+Sourced: Pinterest video supplied by the user for the hero, https://pin.it/raCLLq2bO (pin 1016687684649666474), segment 2.2–7.2 s, centre 720x720 crop; downloaded from v1.pinimg.com, re-encoded with ffmpeg (H.264, faststart, no audio). Poster frame at 1.0 s.

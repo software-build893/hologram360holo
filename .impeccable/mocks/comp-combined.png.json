@@ -1,0 +1,9 @@
+{
+  "prompt": "A desktop landing page for 3D Hologram Ads, a business that sells holographic LED fan displays to small shops and bars, rendered edge to edge with crisp readable text, no browser window or device around it. The visitor is a shop owner deciding whether to buy and must be able to request a quote.\n\nPremium hardware product page at the craft level of an Apple or Dyson product page. Near-black ground, white text, one cyan accent. Top nav: 3D HOLOGRAM ADS with links How it works, In the wild, The kit, Prices, and a cyan Get a quote.\n\nHeadline-led and product-led at once. Centered near the top, the headline Your logo, floating in mid-air. Under it one line: Holographic LED fan with custom 3D content for liquor stores, donut shops, juice bars and phone shops. Two actions: a cyan button Request a quote and a plain link See it in the wild. Below, the 42 cm holographic LED fan straight on at life scale, its two thin LED blades a faint blur, and a glowing 3D liquor bottle floating in front of the hub with no screen behind it. Thin callout lines to Two-blade rotor and Clear acrylic cover. Directly under the fan a segmented switcher of four niche tabs: Liquor store (active, cyan underline with a short progress bar), Donut shop, Juice bar, Phone shop; the product shown changes with the tab. At the bottom edge a calm specs strip: \u00d8 42 cm, 1024 \u00d7 800 px, 224 LEDs, 150\u00b0 viewing, 20 W, and the start of the next section, three offer cards Fan + cover $250, Content $150, Tripod $99.\n\nNot a poster: a working web page with legible links, text and buttons.",
+  "model": "gpt_image_2_5",
+  "tool": "higgsfield generate_image",
+  "aspect_ratio": "16:9",
+  "round": "comp",
+  "note": "Combination the user asked for: headline-led plus product-led, with a niche switcher that rotates the floating product (liquor store, donut shop, juice bar, phone shop).",
+  "references": []
+}

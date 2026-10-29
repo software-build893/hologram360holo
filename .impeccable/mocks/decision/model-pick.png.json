@@ -1,0 +1,8 @@
+{
+  "prompt": "A desktop landing page for 3D Hologram Ads, a business that sells holographic LED fan displays to small shops and bars, rendered edge to edge with crisp readable text, no browser window or device around it. The visitor is a shop owner deciding whether to buy and must be able to request a quote.\n\nThe page is the shop's own front window seen from the street at night. The whole screen is dark glass with the dim interior of a small liquor store behind it. The lettering is painted on the glass by a sign-painter in gold leaf with oxblood outlines and enamel drop shadows: at the top, 3D HOLOGRAM ADS as the fascia name with navigation words beside it: How it works, In the wild, The kit, Prices, Get a quote. Across the centre of the glass the headline YOUR LOGO, FLOATING IN THIS WINDOW in gilded capitals, and one small plain line beneath: Holographic LED fan plus the 3D content made for it. Behind the glass, inside the dark shop, a floating glowing 3D bottle rotates in mid-air with no screen behind it, the fan's thin blades a blur. On the right, lettered on the door panel like a price list under the reversed OPEN sign: Fan + cover $250, Content $150, Tripod $99, each with a small tick box, and a gilded button Request a quote. Teal pinstripes frame the panes. At the bottom the next section starts: a photo of the fan running behind a caf\u00e9 register, labelled In the wild.\n\nGold leaf on glass, real reflections, the dark shop interior visible. Not a poster: a working web page with legible links, text, tick boxes and a button.",
+  "model": "gpt_image_2_5",
+  "tool": "higgsfield generate_image",
+  "aspect_ratio": "16:9",
+  "card": "model-pick",
+  "references": []
+}
