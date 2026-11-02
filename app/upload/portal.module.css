@@ -103,7 +103,7 @@
 }
 .kind:has(input:checked) {
   border-color: var(--accent);
-  background: rgba(12, 242, 243, 0.06);
+  background: rgba(215, 255, 74, 0.06);
 }
 .kind:has(input:focus-visible) {
   outline: 2px solid var(--accent);
@@ -130,7 +130,7 @@
 .drop:hover,
 .drop[data-over] {
   border-color: var(--accent);
-  background: rgba(12, 242, 243, 0.04);
+  background: rgba(215, 255, 74, 0.04);
 }
 .drop input {
   position: absolute;
@@ -222,8 +222,8 @@
 .done {
   padding: 18px;
   border-radius: 12px;
-  border: 1px solid rgba(12, 242, 243, 0.35);
-  background: rgba(12, 242, 243, 0.06);
+  border: 1px solid rgba(215, 255, 74, 0.35);
+  background: rgba(215, 255, 74, 0.06);
 }
 .done h2 {
   margin: 0 0 6px;

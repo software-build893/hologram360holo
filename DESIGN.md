@@ -9,8 +9,8 @@ colors:
   ink: "#f4f5f5"
   ink-mute: "#9a9c9f"
   ink-dim: "#6b6d6e"
-  cyan: "#0cf2f3"
-  cyan-lift: "#3ff5f6"
+  cyan: "#d7ff4a"
+  cyan-lift: "#e4ff7a"
   cyan-ink: "#061314"
   media-black: "#000000"
   cutout-ground: "#111111"
@@ -127,7 +127,7 @@ components:
     rounded: "{rounded.pick}"
     padding: "12px 14px"
   pick-row-checked:
-    backgroundColor: "rgba(12, 242, 243, 0.06)"
+    backgroundColor: "rgba(215, 255, 74, 0.06)"
     rounded: "{rounded.pick}"
   tile-footage:
     backgroundColor: "{colors.media-black}"
@@ -168,7 +168,7 @@ Near-black ground, a three-step grey ink ramp, and one saturated cyan that is al
 - **Hologram Cyan** (`{colors.cyan}`): the primary action (nav pill, hero CTA, form submit), the active tab's progress underline, the specs-strip and how-it-works line icons, the wordmark's "3D", checked checkboxes, input caret, text selection, hover colour on links and tabs, and the focus ring. Never a surface fill at full strength.
 - **Hologram Cyan, lifted** (`{colors.cyan-lift}`): hover state of the cyan pill, paired with a 1px rise.
 - **Cyan Ink** (`{colors.cyan-ink}`): the near-black text set on cyan surfaces and the checkmark stroke.
-- **Cyan at 6% and 8%** (`rgba(12, 242, 243, 0.06)` / `0.08` with a `0.3` border): the only tinted surfaces on the page: a checked offer row and the "sent" confirmation panel.
+- **Cyan at 6% and 8%** (`rgba(215, 255, 74, 0.06)` / `0.08` with a `0.3` border): the only tinted surfaces on the page: a checked offer row and the "sent" confirmation panel.
 
 ### Neutral
 - **Ground** (`{colors.ground}`): page and hero frame background, input fields, the specs band.
@@ -239,7 +239,7 @@ Soft geometry in three families. Full pills (999px) for actions, chips and the c
 Confident and quiet: one solid cyan pill, dark text, a 1px lift on hover.
 - **Shape:** full pill (999px).
 - **Primary:** cyan on cyan-ink, weight 600; hero CTA 162 × 44 comp units at 15px, nav pill 124 × 42 at 14px, form submit full-width with 14px 18px padding at 16px.
-- **Hover / Focus:** `translateY(-1px)` with background to `#3ff5f6` over 300ms/200ms ease-out; focus is the global 2px cyan outline offset 3px with a 4px radius. Submit while sending: opacity 0.6, no lift, `cursor: progress`.
+- **Hover / Focus:** `translateY(-1px)` with background to `#e4ff7a` over 300ms/200ms ease-out; focus is the global 2px cyan outline offset 3px with a 4px radius. Submit while sending: opacity 0.6, no lift, `cursor: progress`.
 - **Secondary (text link):** 14–15px weight 500 in ink, text underlined by a 1px 75%-white border 3px below the baseline, followed by a 16px 1.6-stroke arrow SVG with an 8px gap; whole link turns cyan on hover, underline included.
 
 ### Tabs (niche switcher)

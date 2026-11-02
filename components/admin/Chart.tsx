@@ -31,7 +31,7 @@ export default function Chart({ rows, className }: { rows: DayRow[]; className?:
             <rect x={x - bw - 1} y={y(r.pageviews)} width={bw} height={padT + innerH - y(r.pageviews)} fill="#2f3233" rx={1.5}>
               <title>{`${r.day}: ${r.pageviews} page views`}</title>
             </rect>
-            <rect x={x + 1} y={y(r.visitors)} width={bw} height={padT + innerH - y(r.visitors)} fill="#0cf2f3" rx={1.5}>
+            <rect x={x + 1} y={y(r.visitors)} width={bw} height={padT + innerH - y(r.visitors)} fill="#d7ff4a" rx={1.5}>
               <title>{`${r.day}: ${r.visitors} visitors`}</title>
             </rect>
             {r.quotes > 0 && <circle cx={x} cy={y(0) + 7} r={2.5} fill="#7ee787"><title>{`${r.quotes} quote request${r.quotes > 1 ? "s" : ""}`}</title></circle>}

@@ -117,7 +117,7 @@
 .navCta:hover,
 .ctaPrimary:hover {
   transform: translateY(calc(-1 * var(--u)));
-  background: #3ff5f6;
+  background: #e4ff7a;
 }
 .navCta {
   left: calc(1156 * var(--u));

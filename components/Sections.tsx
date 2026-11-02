@@ -150,7 +150,7 @@ export function Kit() {
         <ul className={s.closeups} aria-label="Close-ups">
           {closeUps.map((c) => (
             <li key={c.id} className={s.closeup}>
-              <img src={`/assets/kit/${c.id}.png`} alt={`${c.label}: ${c.note}`} width={600} height={600} loading="lazy" />
+              <img src={`/assets/kit/${c.id}.jpg`} alt={`${c.label}: ${c.note}`} width={1200} height={1200} loading="lazy" />
               <span className={s.closeupLabel}>{c.label}</span>
               <span className={s.closeupNote}>{c.note}</span>
             </li>
