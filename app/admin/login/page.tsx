@@ -1,6 +1,9 @@
 import { signInPossible } from "@/lib/auth";
 import s from "../admin.module.css";
 
+// never prerendered: the verdict depends on the request's cookie and the database
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Sign in — 3D Hologram Ads analytics" };
 
 export default async function Login({ searchParams }: { searchParams: Promise<{ error?: string; next?: string; email?: string }> }) {

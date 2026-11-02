@@ -6,6 +6,9 @@ import ConfirmButton from "@/components/admin/ConfirmButton";
 import Editor from "@/components/admin/Editor";
 import s from "../../admin.module.css";
 
+// never prerendered: the verdict depends on the request's cookie and the database
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Article — 3D Hologram Ads" };
 
 const when = (iso: string) => new Date(iso).toLocaleString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }) + " UTC";

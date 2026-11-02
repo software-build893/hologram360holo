@@ -97,8 +97,9 @@ async function adminFromToken(token: string | undefined): Promise<Admin | null> 
 
 /** The signed-in admin for this request, or null. */
 export async function currentAdmin(): Promise<Admin | null> {
-  if (!secretConfigured()) return null;
+  // cookies() first: it marks the page dynamic, so a build (which has no secrets) can never prerender a verdict
   const jar = await cookies();
+  if (!secretConfigured()) return null;
   return adminFromToken(jar.get(SESSION_COOKIE)?.value);
 }
 

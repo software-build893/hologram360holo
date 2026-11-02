@@ -8,6 +8,9 @@ import Chart from "@/components/admin/Chart";
 import CopyLink from "@/components/admin/CopyLink";
 import s from "./admin.module.css";
 
+// never prerendered: the verdict depends on the request's cookie and the database
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Analytics — 3D Hologram Ads" };
 
 type Params = Record<string, string | string[] | undefined>;

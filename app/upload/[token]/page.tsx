@@ -7,6 +7,9 @@ export const metadata = { title: "Send your logo and product — 3D Hologram Ads
 
 const offerTitle = (id: string) => offers.find((o) => o.id === id)?.title ?? id;
 
+// never prerendered: the verdict depends on the request's cookie and the database
+export const dynamic = "force-dynamic";
+
 export default async function Portal({ params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
   const order = await orderByToken(token);
