@@ -32,7 +32,7 @@ export default async function Articles() {
           <p className={s.empty}>Nothing published yet. The first article is on its way.</p>
         ) : (
           <ul className={s.list}>
-            {list.map((a) => (
+            {list.map((a, i) => (
               <li key={a.id} className={s.row}>
                 <div className={s.rowMeta}>
                   <time dateTime={a.published_at ?? undefined}>{formatDate(a.published_at)}</time>
@@ -43,7 +43,7 @@ export default async function Articles() {
                   {a.summary && <p className={s.rowSummary}>{a.summary}</p>}
                   <a className={s.rowMore} href={`/articles/${a.slug}`} aria-label={`Read: ${a.title}`}><span>Read</span><Arrow /></a>
                 </div>
-                {a.cover && <img className={s.rowCover} src={`/api/articles/${a.id}/cover?v=${encodeURIComponent(a.updated_at)}`} alt={a.cover_alt} loading="lazy" />}
+                {a.cover && <img className={s.rowCover} src={`/api/articles/${a.id}/cover?v=${encodeURIComponent(a.updated_at)}`} alt={a.cover_alt} loading={i < 3 ? "eager" : "lazy"} />}
               </li>
             ))}
           </ul>
