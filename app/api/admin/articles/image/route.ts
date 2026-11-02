@@ -7,6 +7,7 @@ import { pipeline } from "node:stream/promises";
 import type { ReadableStream as NodeReadableStream } from "node:stream/web";
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/auth";
+import { sameOrigin } from "@/lib/http";
 import { ARTICLE_DIR } from "@/lib/db";
 
 // Pictures placed inside an article body by the editor. Stored under data/articles/body/ and served
@@ -17,6 +18,7 @@ export const BODY_IMAGE_DIR = path.join(ARTICLE_DIR, "body");
 
 export async function POST(req: Request) {
   if (!(await isAdmin())) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!sameOrigin(req)) return NextResponse.json({ error: "forbidden" }, { status: 403 });
   const form = await req.formData();
   const file = form.get("file");
   if (!(file instanceof File) || file.size === 0) return NextResponse.json({ error: "Choose a picture." }, { status: 422 });

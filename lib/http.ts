@@ -17,8 +17,17 @@ export function publicUrl(req: Request, path: string): URL {
  * *.afdillah.com hosts, so compare the browser's Origin header with our public origin.
  */
 export function sameOrigin(req: Request): boolean {
+  const ours = publicUrl(req, "/").origin;
   const origin = req.headers.get("origin");
-  return Boolean(origin) && origin === publicUrl(req, "/").origin;
+  if (origin) return origin === ours;
+  // some browsers omit Origin on same-origin form posts but still send the Referer
+  const referer = req.headers.get("referer");
+  if (!referer) return false;
+  try {
+    return new URL(referer).origin === ours;
+  } catch {
+    return false;
+  }
 }
 
 export function redirectTo(req: Request, path: string) {

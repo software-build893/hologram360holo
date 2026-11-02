@@ -8,7 +8,7 @@ import type { ReadableStream as NodeReadableStream } from "node:stream/web";
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/auth";
 import { ARTICLE_DIR, articleById, articleBySlug, createArticle, deleteArticle, updateArticle } from "@/lib/db";
-import { redirectTo } from "@/lib/http";
+import { redirectTo, sameOrigin } from "@/lib/http";
 import { sanitizeArticleHtml, slugify } from "@/lib/article";
 
 // One form endpoint for the article editor: create, save, publish, unpublish and delete,
@@ -18,6 +18,7 @@ const COVER_TYPES: Record<string, string> = { "image/jpeg": ".jpg", "image/png":
 
 export async function POST(req: Request) {
   if (!(await isAdmin())) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!sameOrigin(req)) return NextResponse.json({ error: "forbidden" }, { status: 403 });
   const form = await req.formData();
   const action = String(form.get("action") ?? "save");
   const id = Number(form.get("id")) || 0;

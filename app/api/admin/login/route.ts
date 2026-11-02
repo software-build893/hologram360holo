@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { redirectTo } from "@/lib/http";
+import { redirectTo, sameOrigin } from "@/lib/http";
 import { authenticate, clearLoginFailures, issueToken, loginLocked, noteLoginFailure, SESSION_COOKIE, sessionCookieOptions, signInPossible } from "@/lib/auth";
 
 function clientKey(req: Request): string {
@@ -7,6 +7,8 @@ function clientKey(req: Request): string {
 }
 
 export async function POST(req: Request) {
+  // the sign-in form must be submitted from this site's own page
+  if (!sameOrigin(req)) return NextResponse.json({ error: "forbidden" }, { status: 403 });
   if (!(await signInPossible())) return NextResponse.json({ error: "No admin account exists yet. Set ADMIN_EMAIL and ADMIN_PASSWORD on the server to create the first one." }, { status: 503 });
   const form = await req.formData();
   const email = String(form.get("email") ?? "").trim().slice(0, 200);
