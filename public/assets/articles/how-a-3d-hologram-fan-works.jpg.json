@@ -1,0 +1,6 @@
+{
+  "prompt": "Editorial product photograph, dark studio. A round holographic LED fan display, 42 cm, mounted on a matte black wall, its spinning disc of light showing a glowing abstract geometric object (a faceted crystal shape) floating in mid-air in cyan and white light. The rest of the frame is deep black with a faint reflection on a dark floor. No text, no logos, no people. Shallow depth of field, cinematic, high detail.",
+  "model": "gpt_image_2_5 (Higgsfield)",
+  "generated": "2026-11-02",
+  "post": "sips -Z 1600, JPEG q85"
+}

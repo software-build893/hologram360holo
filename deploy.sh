@@ -31,6 +31,8 @@ ssh "$HOST" "set -e
   if [ -n '${MIGRATE:-}' ]; then
     sudo docker compose exec -T web node scripts/migrate-sqlite.mjs
   fi
+  # launch articles: inserted once, skipped when their slugs already exist
+  sudo docker compose exec -T web node scripts/seed-articles.mjs
   sudo docker image prune -f >/dev/null
   for i in 1 2 3 4 5 6 7 8 9 10; do
     code=\$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3101/ || true)

@@ -1,0 +1,6 @@
+{
+  "prompt": "Product photograph in a bright, minimal showroom with concrete floor and white walls. A round holographic LED fan display with a clear acrylic cover stands on a slim black tripod floor stand, next to it the same fan mounted flat on the wall. Soft daylight from a large window, clean composition, no text, no logos, no people. High-end catalogue look.",
+  "model": "gpt_image_2_5 (Higgsfield)",
+  "generated": "2026-11-02",
+  "post": "sips -Z 1600, JPEG q85"
+}
