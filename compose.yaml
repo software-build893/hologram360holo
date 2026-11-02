@@ -1,0 +1,44 @@
+# The site and its database. `docker compose up -d --build` on the VPS; `docker compose up -d db` for local dev.
+# Secrets come from the env file next to this file (.env): POSTGRES_PASSWORD, ADMIN_SECRET, SITE_URL, and
+# ADMIN_EMAIL + ADMIN_PASSWORD, which only seed the first dashboard user.
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hologram
+      POSTGRES_USER: hologram
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      # loopback only: psql from the host and the dev server on a laptop; never reachable from outside
+      - "127.0.0.1:${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hologram -d hologram"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://hologram:${POSTGRES_PASSWORD}@db:5432/hologram
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      ADMIN_SECRET: ${ADMIN_SECRET:-}
+      SITE_URL: ${SITE_URL:-https://hologram-alt.afdillah.com}
+    volumes:
+      # customer uploads, article covers and the old SQLite file to import; survives rebuilds
+      - ${DATA_DIR_HOST:-./data}:/app/data
+    ports:
+      # nginx proxies https://hologram-alt.afdillah.com to this port on the host
+      - "127.0.0.1:${WEB_PORT:-3101}:3000"
+    mem_limit: 2g
+
+volumes:
+  pgdata:

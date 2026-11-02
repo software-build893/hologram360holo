@@ -120,6 +120,7 @@ export default function Hero() {
                 <a className={styles.navWild} href="#wild">In the wild</a>
                 <a className={styles.navKit} href="#kit">The kit</a>
                 <a className={styles.navPrices} href="#prices">Prices</a>
+                <a className={styles.navArticles} href="/articles">Articles</a>
               </nav>
               <a className={styles.navCta} href="#quote">Get a quote</a>
             </header>

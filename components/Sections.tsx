@@ -173,11 +173,12 @@ export function Footer() {
       <div className={`${s.container} ${s.footerRow}`}>
         <span>3D Hologram Ads · Holographic LED fans and custom 3D content</span>
         <nav className={s.footerNav} aria-label="Footer">
-          <a href="#how">How it works</a>
-          <a href="#wild">In the wild</a>
-          <a href="#kit">The kit</a>
-          <a href="#prices">Prices</a>
-          <a href="#quote">Get a quote</a>
+          <a href="/#how">How it works</a>
+          <a href="/#wild">In the wild</a>
+          <a href="/#kit">The kit</a>
+          <a href="/#prices">Prices</a>
+          <a href="/articles">Articles</a>
+          <a href="/#quote">Get a quote</a>
         </nav>
       </div>
     </footer>

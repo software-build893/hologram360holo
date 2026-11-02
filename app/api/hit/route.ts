@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   }
   const path = String(body.path ?? "/").slice(0, 200);
   if (path.startsWith("/admin")) return new NextResponse(null, { status: 204 });
-  recordPageview({
+  await recordPageview({
     vid: visitorId(req),
     path,
     referrer: String(body.referrer ?? "").slice(0, 300),

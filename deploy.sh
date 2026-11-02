@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Build and deploy the Next.js site to the VPS behind hologram-alt.afdillah.com.
-#   ./deploy.sh            # build + upload + restart the service
-#   SKIP_BUILD=1 ./deploy.sh
-# Needs: ssh access as mac@100.81.148.15 (Tailscale) with passwordless sudo there,
-# and the one-time server setup in README.md (Node 22 in /opt/node22, the systemd unit, nginx vhost).
+# Deploy the site to the VPS behind hologram-alt.afdillah.com as two containers: web (this app) and db (PostgreSQL).
+#   ./deploy.sh                 # sync the source, build the image on the server, roll the containers
+#   MIGRATE=1 ./deploy.sh       # ...then import the old SQLite store into Postgres (first Docker deploy)
+# Needs: ssh as mac@100.81.148.15 (Tailscale) with passwordless sudo, Docker + compose on the server,
+# and $APP/.env there with POSTGRES_PASSWORD, ADMIN_PASSWORD, ADMIN_SECRET (see README.md).
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -11,29 +11,33 @@ HOST="${DEPLOY_HOST:-mac@100.81.148.15}"
 SITE="${SITE:-hologram-alt.afdillah.com}"
 APP="/var/www/$SITE"
 
-if [ -z "${SKIP_BUILD:-}" ]; then
-  npm run build
-fi
+echo "→ syncing source to $HOST:~/$SITE.src"
+rsync -az --delete --exclude-from=.dockerignore --exclude='.env*' ./ "$HOST:~/$SITE.src/"
 
-# standalone output needs the static chunks and public/ beside server.js
-rm -rf .deploy && mkdir -p .deploy
-cp -R .next/standalone/. .deploy/
-mkdir -p .deploy/.next/static && cp -R .next/static/. .deploy/.next/static/
-mkdir -p .deploy/public && cp -R public/. .deploy/public/
-
-echo "→ uploading to $HOST:~/$SITE.new"
-rsync -az --delete .deploy/ "$HOST:~/$SITE.new/"
-
-echo "→ swapping into $APP and restarting"
+echo "→ building and starting on the server"
 ssh "$HOST" "set -e
   sudo mkdir -p $APP/data
-  sudo rm -rf $APP.prev
-  if [ -d $APP/app ]; then sudo mv $APP/app $APP.prev; fi
-  sudo mv ~/$SITE.new $APP/app
-  sudo chown -R mac:mac $APP
-  sudo systemctl restart hologram-alt
-  sleep 2
-  sudo systemctl is-active hologram-alt
-  curl -s -o /dev/null -w 'local %{http_code}\n' http://127.0.0.1:3101/"
+  sudo rsync -a --delete ~/$SITE.src/ $APP/src/
+  test -f $APP/.env || { echo '!! $APP/.env is missing (POSTGRES_PASSWORD, ADMIN_PASSWORD, ADMIN_SECRET)'; exit 1; }
+  sudo ln -sfn $APP/.env $APP/src/.env
+  # compose mounts the data directory from this path rather than from inside the synced source
+  sudo grep -q '^DATA_DIR_HOST=' $APP/.env || echo DATA_DIR_HOST=$APP/data | sudo tee -a $APP/.env >/dev/null
+  # the web container runs as uid 1000 and writes uploads and covers here
+  sudo chown -R 1000:1000 $APP/data
+  # the pre-Docker systemd service held port 3101; harmless once it is gone
+  sudo systemctl disable --now hologram-alt 2>/dev/null || true
+  cd $APP/src
+  sudo docker compose up -d --build --remove-orphans
+  if [ -n '${MIGRATE:-}' ]; then
+    sudo docker compose exec -T web node scripts/migrate-sqlite.mjs
+  fi
+  sudo docker image prune -f >/dev/null
+  for i in 1 2 3 4 5 6 7 8 9 10; do
+    code=\$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3101/ || true)
+    [ \"\$code\" = 200 ] && break
+    sleep 3
+  done
+  echo \"local \$code\"
+  sudo docker compose ps --format '{{.Name}} {{.Status}}'"
 
 echo "✓ deployed https://$SITE"

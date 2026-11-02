@@ -24,7 +24,8 @@ const ISO = /^\d{4}-\d{2}-\d{2}$/;
 export function rangeFromParams(params: URLSearchParams, now = Date.now()): Range {
   const from = params.get("from");
   const to = params.get("to");
-  if (from && to && ISO.test(from) && ISO.test(to) && from <= to) {
+  // a custom range is capped at about a year so a crafted link can't make the dashboard build millions of rows
+  if (from && to && ISO.test(from) && ISO.test(to) && from <= to && Date.parse(to) - Date.parse(from) <= 366 * DAY) {
     return { key: "custom", label: `${from} to ${to}`, from, to };
   }
   const list = presets(now);

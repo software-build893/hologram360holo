@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   turbopack: { root: __dirname },
   // deploy.sh ships .next/standalone (a self-contained server.js) to the VPS
   output: "standalone",
+  poweredByHeader: false,
 };
 
 export default nextConfig;

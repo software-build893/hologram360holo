@@ -100,6 +100,7 @@
 .navWild { left: calc(622 * var(--u)); }
 .navKit { left: calc(750 * var(--u)); }
 .navPrices { left: calc(858 * var(--u)); }
+.navArticles { left: calc(954 * var(--u)); }
 
 .navCta,
 .ctaPrimary {

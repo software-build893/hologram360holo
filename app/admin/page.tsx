@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { isAdmin } from "@/lib/auth";
-import { dailySeries, getSetting, ordersList, quotesList, topReferrers, totals, uploadsByOrder } from "@/lib/db";
+import { currentAdmin, PASSWORD_MIN } from "@/lib/auth";
+import { adminsList, articlesList, articleViews, dailySeries, getSetting, ordersList, quotesList, topReferrers, totals, uploadsByOrder } from "@/lib/db";
 import { presets, rangeFromParams, rangeQuery } from "@/lib/range";
 import { offers } from "@/lib/content";
 import Chart from "@/components/admin/Chart";
@@ -18,27 +18,37 @@ const when = (iso: string) => new Date(iso).toLocaleString("en-US", { month: "sh
 const offerTitle = (id: string) => offers.find((o) => o.id === id)?.title ?? id;
 
 export default async function Admin({ searchParams }: { searchParams: Promise<Params> }) {
-  if (!(await isAdmin())) redirect("/admin/login");
+  const me = await currentAdmin();
+  if (!me) redirect("/admin/login");
   const sp = await searchParams;
   const params = new URLSearchParams();
   for (const [k, v] of Object.entries(sp)) if (typeof v === "string") params.set(k, v);
-  const tab = params.get("tab") === "orders" ? "orders" : "traffic";
+  const tabParam = params.get("tab");
+  const tab = tabParam === "orders" ? "orders" : tabParam === "articles" ? "articles" : tabParam === "account" ? "account" : "traffic";
   const range = rangeFromParams(params);
   const q = rangeQuery(range);
 
   const h = await headers();
   const origin = `${h.get("x-forwarded-proto") ?? "http"}://${h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:5190"}`;
 
-  const t = totals(range.from, range.to);
-  const rows = dailySeries(range.from, range.to);
-  const refs = topReferrers(range.from, range.to);
-  const quotes = quotesList(range.from, range.to);
-  const rate = Number(getSetting("rate_per_visitor", "0.05"));
-  const currency = getSetting("currency", "$");
-  const orders = ordersList();
-  const uploads = uploadsByOrder();
+  const [t, rows, refs, quotes, rateSetting, currency, orders, uploads] = await Promise.all([
+    totals(range.from, range.to),
+    dailySeries(range.from, range.to),
+    topReferrers(range.from, range.to),
+    quotesList(range.from, range.to),
+    getSetting("rate_per_visitor", "0.05"),
+    getSetting("currency", "$"),
+    ordersList(),
+    uploadsByOrder(),
+  ]);
+  const rate = Number(rateSetting);
   const created = params.get("created");
   const error = params.get("error");
+  const articles = tab === "articles" ? await articlesList() : [];
+  const views = tab === "articles" ? await articleViews() : new Map<string, { views: number; visitors: number }>();
+  const deleted = params.get("deleted");
+  const ok = params.get("ok");
+  const admins = tab === "account" ? await adminsList() : [];
 
   return (
     <div className={s.shell}>
@@ -47,9 +57,11 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
         <nav className={s.barTabs} aria-label="Sections">
           <a className={s.barTab} data-active={tab === "traffic" || undefined} href={`/admin?${q}`}>Traffic & billing</a>
           <a className={s.barTab} data-active={tab === "orders" || undefined} href={`/admin?tab=orders&${q}`}>Orders & uploads</a>
+          <a className={s.barTab} data-active={tab === "articles" || undefined} href="/admin?tab=articles">Articles</a>
         </nav>
         <div className={s.barRight}>
           <a href="/" className={s.muted}>View site</a>
+          <a href="/admin?tab=account" className={s.muted} data-active={tab === "account" || undefined} title="Your account">{me.email}</a>
           <form method="post" action="/api/admin/logout">
             <button className={`${s.btn} ${s.btnSmall}`} type="submit">Sign out</button>
           </form>
@@ -148,6 +160,119 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
                 )}
               </section>
             </div>
+          </>
+        ) : tab === "account" ? (
+          <>
+            <div className={s.head}>
+              <div>
+                <h1 className={s.h1}>Account</h1>
+                <p className={s.sub}>Signed in as {me.email}. Everyone listed below can do everything in this dashboard.</p>
+              </div>
+            </div>
+
+            {error && <p className={s.error}>{error}</p>}
+            {ok && <p className={s.notice}>{ok}</p>}
+
+            <div className={s.grid}>
+              <section className={s.panel} aria-label="Your details">
+                <div className={s.panelHead}><h2 className={s.panelTitle}>Your details</h2></div>
+                <form className={s.orderForm} method="post" action="/api/admin/account">
+                  <input type="hidden" name="action" value="profile" />
+                  <label className={`${s.field} ${s.wide}`}>Email · what you sign in with<input type="email" name="email" defaultValue={me.email} required autoComplete="username" /></label>
+                  <label className={`${s.field} ${s.wide}`}>Name (optional)<input name="name" defaultValue={me.name} maxLength={120} /></label>
+                  <div className={s.wide}><button className={s.btn} type="submit">Save details</button></div>
+                </form>
+              </section>
+
+              <section className={s.panel} aria-label="Change password">
+                <div className={s.panelHead}><h2 className={s.panelTitle}>Change password</h2><span className={s.panelMeta}>at least {PASSWORD_MIN} characters</span></div>
+                <form className={s.orderForm} method="post" action="/api/admin/account">
+                  <input type="hidden" name="action" value="password" />
+                  <label className={`${s.field} ${s.wide}`}>Current password<input type="password" name="current" required autoComplete="current-password" /></label>
+                  <label className={`${s.field} ${s.wide}`}>New password<input type="password" name="password" required minLength={PASSWORD_MIN} autoComplete="new-password" /></label>
+                  <label className={`${s.field} ${s.wide}`}>New password again<input type="password" name="confirm" required minLength={PASSWORD_MIN} autoComplete="new-password" /></label>
+                  <div className={s.wide}><button className={`${s.btn} ${s.btnPrimary}`} type="submit">Change password</button></div>
+                </form>
+              </section>
+            </div>
+
+            <div className={s.grid}>
+              <section className={s.panel} aria-label="Admins">
+                <div className={s.panelHead}><h2 className={s.panelTitle}>Who can sign in</h2><span className={s.panelMeta}>{admins.length} {admins.length === 1 ? "account" : "accounts"}</span></div>
+                <table className={s.table}>
+                  <thead><tr><th>Email</th><th>Name</th><th>Added</th><th>Last sign-in</th><th></th></tr></thead>
+                  <tbody>
+                    {admins.map((a) => (
+                      <tr key={a.id}>
+                        <td>{a.email}{a.id === me.id && <span className={s.dim}> · you</span>}</td>
+                        <td>{a.name || <span className={s.dim}>—</span>}</td>
+                        <td className={s.muted}>{when(a.created_at)}</td>
+                        <td className={s.muted}>{a.last_login_at ? when(a.last_login_at) : "never"}</td>
+                        <td className={s.rowActions}>
+                          {a.id !== me.id && admins.length > 1 && (
+                            <form method="post" action="/api/admin/admins" className={s.inlineForm}>
+                              <input type="hidden" name="action" value="remove" />
+                              <input type="hidden" name="id" value={a.id} />
+                              <button className={`${s.btn} ${s.btnSmall}`} type="submit">Remove</button>
+                            </form>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </section>
+
+              <section className={s.panel} aria-label="Add an admin">
+                <div className={s.panelHead}><h2 className={s.panelTitle}>Add an admin</h2></div>
+                <form className={s.orderForm} method="post" action="/api/admin/admins" autoComplete="off">
+                  <input type="hidden" name="action" value="add" />
+                  <label className={`${s.field} ${s.wide}`}>Email<input type="email" name="email" required autoComplete="off" /></label>
+                  <label className={`${s.field} ${s.wide}`}>Name (optional)<input name="name" maxLength={120} autoComplete="off" /></label>
+                  <label className={`${s.field} ${s.wide}`}>First password · hand it over, they change it after signing in<input type="password" name="password" required minLength={PASSWORD_MIN} autoComplete="new-password" /></label>
+                  <div className={s.wide}><button className={`${s.btn} ${s.btnPrimary}`} type="submit">Add admin</button></div>
+                </form>
+              </section>
+            </div>
+          </>
+        ) : tab === "articles" ? (
+          <>
+            <div className={s.head}>
+              <div>
+                <h1 className={s.h1}>Articles</h1>
+                <p className={s.sub}>Write it here, add a cover, publish when ready. Published articles appear at <a href="/articles">/articles</a>; drafts are visible only while you are signed in.</p>
+              </div>
+              <a className={`${s.btn} ${s.btnPrimary}`} href="/admin/articles/new">New article</a>
+            </div>
+
+            {deleted && <p className={s.notice}>Article deleted.</p>}
+
+            <section className={s.panel} aria-label="All articles">
+              <div className={s.panelHead}><h2 className={s.panelTitle}>All articles</h2><span className={s.panelMeta}>{articles.filter((a) => a.status === "published").length} published · {articles.filter((a) => a.status === "draft").length} drafts</span></div>
+              {articles.length === 0 ? (
+                <div className={s.empty}><strong>No articles yet</strong>Start with "New article" above. A draft is saved before it is published, so nothing goes live by accident.</div>
+              ) : (
+                <table className={s.table}>
+                  <thead><tr><th>Title</th><th>Status</th><th>Updated</th><th>Published</th><th className={s.num}>Views</th><th className={s.num}>Readers</th><th></th></tr></thead>
+                  <tbody>
+                    {articles.map((a) => {
+                      const v = views.get(a.slug) as { views: number; visitors: number } | undefined;
+                      return (
+                        <tr key={a.id}>
+                          <td><a className={s.rowTitle} href={`/admin/articles/${a.id}`}>{a.title}</a><div className={s.dim}>/articles/{a.slug}</div></td>
+                          <td><span className={s.status} data-s={a.status === "published" ? "done" : "awaiting"}>{a.status}</span></td>
+                          <td className={s.muted}>{when(a.updated_at)}</td>
+                          <td className={s.muted}>{a.published_at ? when(a.published_at) : "—"}</td>
+                          <td className={s.num}>{fmt.format(v?.views ?? 0)}</td>
+                          <td className={s.num}>{fmt.format(v?.visitors ?? 0)}</td>
+                          <td className={s.rowActions}><a href={`/admin/articles/${a.id}`}>Edit</a><a href={`/articles/${a.slug}`} target="_blank" rel="noreferrer">View</a></td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
+            </section>
           </>
         ) : (
           <>

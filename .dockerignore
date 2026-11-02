@@ -1,0 +1,12 @@
+node_modules
+.next
+.deploy
+data
+.git
+.env
+.env.*
+.impeccable
+.claude
+scripts/capture.mjs
+*.md
+!README.md

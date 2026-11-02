@@ -1,12 +1,18 @@
 import { randomBytes } from "node:crypto";
-import { mkdir, writeFile } from "node:fs/promises";
+import { createWriteStream } from "node:fs";
+import { mkdir } from "node:fs/promises";
 import path from "node:path";
+import { Readable } from "node:stream";
+import { pipeline } from "node:stream/promises";
+import type { ReadableStream as NodeReadableStream } from "node:stream/web";
 import { NextResponse } from "next/server";
-import { addUpload, orderByToken, UPLOAD_DIR } from "@/lib/db";
+import { addUpload, orderByToken, uploadedBytes, UPLOAD_DIR } from "@/lib/db";
 
 // The customer's upload endpoint: the unique link is the only credential, so the token must match an order.
 const MAX_BYTES = 60 * 1024 * 1024; // 60 MB per file, enough for a layered logo or a short product clip
 const MAX_FILES = 12;
+const MAX_REQUEST = MAX_FILES * MAX_BYTES + 1024 * 1024; // all files plus multipart overhead
+const MAX_PER_ORDER = 2 * 1024 * 1024 * 1024; // 2 GB across every upload for one order
 const ALLOWED = new Set([
   "image/png", "image/jpeg", "image/webp", "image/svg+xml", "image/gif", "image/heic", "image/tiff",
   "application/pdf", "application/postscript", "application/illustrator", "application/zip",
@@ -16,9 +22,17 @@ const KINDS = new Set(["logo", "product", "other"]);
 
 export async function POST(req: Request, ctx: { params: Promise<{ token: string }> }) {
   const { token } = await ctx.params;
-  const order = orderByToken(token);
+  const order = await orderByToken(token);
   if (!order) return NextResponse.json({ error: "This link is not valid." }, { status: 404 });
   if (order.status === "done") return NextResponse.json({ error: "This order is complete; write to us if you need to send more." }, { status: 409 });
+
+  // check the declared size before formData() buffers the body
+  const length = Number(req.headers.get("content-length"));
+  if (!length) return NextResponse.json({ error: "Missing upload size." }, { status: 411 });
+  if (length > MAX_REQUEST) return NextResponse.json({ error: `Up to ${MAX_FILES} files of 60 MB each at a time.` }, { status: 413 });
+  if ((await uploadedBytes(order.id)) + length > MAX_PER_ORDER) {
+    return NextResponse.json({ error: "This order has reached its upload limit; write to us if you need to send more." }, { status: 413 });
+  }
 
   const form = await req.formData();
   const kind = String(form.get("kind") ?? "other");
@@ -36,8 +50,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ token: string 
     if (!ALLOWED.has(mime)) return NextResponse.json({ error: `${file.name}: ${mime} is not a file type we can use. Send PNG, SVG, PDF, AI, JPG, ZIP or MP4.` }, { status: 415 });
     const ext = path.extname(file.name).toLowerCase().slice(0, 10) || "";
     const stored = `${Date.now()}-${randomBytes(4).toString("hex")}${ext}`;
-    await writeFile(path.join(dir, stored), Buffer.from(await file.arrayBuffer()));
-    saved.push(addUpload({ order_id: order.id, kind: KINDS.has(kind) ? kind : "other", filename: file.name.slice(0, 200), stored, size: file.size, mime, note }));
+    await pipeline(Readable.fromWeb(file.stream() as NodeReadableStream), createWriteStream(path.join(dir, stored)));
+    saved.push(await addUpload({ order_id: order.id, kind: KINDS.has(kind) ? kind : "other", filename: file.name.slice(0, 200), stored, size: file.size, mime, note }));
   }
   return NextResponse.json({ ok: true, files: saved.map((u) => ({ id: u.id, filename: u.filename, size: u.size, kind: u.kind })) });
 }

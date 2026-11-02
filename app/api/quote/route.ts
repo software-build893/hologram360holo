@@ -21,6 +21,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "incomplete" }, { status: 422 });
   }
   const total = offers.filter((o) => items.includes(o.id)).reduce((sum, o) => sum + o.price, 0);
-  recordQuote({ vid: visitorId(req), name, business, email, notes, items, total, ua: userAgent(req) });
+  await recordQuote({ vid: visitorId(req), name, business, email, notes, items, total, ua: userAgent(req) });
   return NextResponse.json({ ok: true, total });
 }

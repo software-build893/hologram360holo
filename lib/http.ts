@@ -12,6 +12,15 @@ export function publicUrl(req: Request, path: string): URL {
   return new URL(path, base);
 }
 
+/**
+ * Admin form posts must come from this site's own pages. SameSite=Lax still sends the cookie on posts from sibling
+ * *.afdillah.com hosts, so compare the browser's Origin header with our public origin.
+ */
+export function sameOrigin(req: Request): boolean {
+  const origin = req.headers.get("origin");
+  return Boolean(origin) && origin === publicUrl(req, "/").origin;
+}
+
 export function redirectTo(req: Request, path: string) {
   return NextResponse.redirect(publicUrl(req, path), 303);
 }

@@ -9,7 +9,7 @@ const offerTitle = (id: string) => offers.find((o) => o.id === id)?.title ?? id;
 
 export default async function Portal({ params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
-  const order = orderByToken(token);
+  const order = await orderByToken(token);
 
   if (!order) {
     return (
@@ -23,7 +23,7 @@ export default async function Portal({ params }: { params: Promise<{ token: stri
     );
   }
 
-  const previous = uploadsForOrder(order.id);
+  const previous = await uploadsForOrder(order.id);
   const done = order.status === "done";
 
   return (
