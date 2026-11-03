@@ -155,15 +155,32 @@ export async function eventsCsv(from: string, to: string): Promise<string> {
 
 // ---------- orders and uploads (customer portal) ----------
 
-export type Order = { id: number; token: string; created_at: string; business: string; name: string; email: string; items: string[]; note: string; status: "awaiting" | "received" | "done" };
+export type Order = { id: number; token: string; created_at: string; business: string; name: string; email: string; items: string[]; note: string; status: "awaiting" | "received" | "done"; quote_id: number | null };
 export type Upload = { id: number; order_id: number; at: string; kind: string; filename: string; stored: string; size: number; mime: string; note: string };
 
-export async function createOrder(o: { token: string; business: string; name: string; email: string; items: string[]; note: string }): Promise<Order> {
+export async function createOrder(o: { token: string; business: string; name: string; email: string; items: string[]; note: string; quoteId?: number | null }): Promise<Order> {
   const row = await one<Order>(
-    "insert into orders (token, created_at, business, name, email, items, note) values ($1, now(), $2, $3, $4, $5, $6) returning *",
-    [o.token, o.business, o.name, o.email, JSON.stringify(o.items), o.note],
+    "insert into orders (token, created_at, business, name, email, items, note, quote_id) values ($1, now(), $2, $3, $4, $5, $6, $7) returning *",
+    [o.token, o.business, o.name, o.email, JSON.stringify(o.items), o.note, o.quoteId ?? null],
   );
   return row!;
+}
+
+/** A quote request with the order made from it, if any; for the Orders tab. */
+export type QuoteForOrders = QuoteRow & { order_id: number | null };
+
+/** The latest quote requests regardless of the dashboard's date range, newest first. */
+export async function quotesForOrders(limit = 50): Promise<QuoteForOrders[]> {
+  return q<QuoteForOrders>(
+    `select qu.id, qu.at, qu.name, qu.business, qu.email, qu.notes, qu.items, qu.total,
+            (select o.id from orders o where o.quote_id = qu.id order by o.created_at limit 1) as order_id
+     from quotes qu order by qu.at desc limit $1`,
+    [limit],
+  );
+}
+
+export async function quoteById(id: number): Promise<QuoteRow | null> {
+  return one<QuoteRow>("select id, at, name, business, email, notes, items, total from quotes where id = $1", [id]);
 }
 
 export async function orderById(id: number): Promise<Order | null> {

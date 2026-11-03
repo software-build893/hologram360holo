@@ -358,6 +358,12 @@
 }
 
 /* ---------- orders ---------- */
+.stack {
+  margin-bottom: 12px;
+}
+.table tr[data-picked] td {
+  background: rgba(215, 255, 74, 0.06);
+}
 .orderForm {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

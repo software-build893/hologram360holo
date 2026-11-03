@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { currentAdmin, PASSWORD_MIN } from "@/lib/auth";
-import { adminsList, articlesList, articleViews, dailySeries, getSetting, ordersList, quotesList, topReferrers, totals, uploadsByOrder } from "@/lib/db";
+import { adminsList, articlesList, articleViews, dailySeries, getSetting, ordersList, quoteById, quotesForOrders, quotesList, topReferrers, totals, uploadsByOrder } from "@/lib/db";
 import { presets, rangeFromParams, rangeQuery } from "@/lib/range";
 import { offers } from "@/lib/content";
 import Chart from "@/components/admin/Chart";
@@ -48,6 +48,10 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
   const created = params.get("created");
   const error = params.get("error");
   const articles = tab === "articles" ? await articlesList() : [];
+  // Orders tab: the latest quote requests, and the one picked to start a new order from
+  const openQuotes = tab === "orders" ? await quotesForOrders() : [];
+  const quoteParam = Number(params.get("quote") ?? "");
+  const fromQuote = tab === "orders" && Number.isInteger(quoteParam) && quoteParam > 0 ? await quoteById(quoteParam) : null;
   const views = tab === "articles" ? await articleViews() : new Map<string, { views: number; visitors: number }>();
   const deleted = params.get("deleted");
   const ok = params.get("ok");
@@ -282,7 +286,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
             <div className={s.head}>
               <div>
                 <h1 className={s.h1}>Orders & uploads</h1>
-                <p className={s.sub}>After a customer pays, create their order here and send them the unique link; their logo and product files arrive below.</p>
+                <p className={s.sub}>After a customer pays, create their order here, from their quote request or by hand, and send them the unique link; their logo and product files arrive below.</p>
               </div>
             </div>
 
@@ -299,6 +303,35 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
               );
             })()}
 
+            <section className={`${s.panel} ${s.stack}`} aria-label="Quote requests">
+              <div className={s.panelHead}><h2 className={s.panelTitle}>Quote requests</h2><span className={s.panelMeta}>latest {openQuotes.length}</span></div>
+              {openQuotes.length === 0 ? (
+                <div className={s.empty}><strong>No quote requests yet</strong>Requests from the site's quote form appear here, ready to turn into an order once the customer pays.</div>
+              ) : (
+                <table className={s.table}>
+                  <thead><tr><th>When</th><th>Business</th><th>Contact</th><th>Items</th><th className={s.num}>Total</th><th>Order</th></tr></thead>
+                  <tbody>
+                    {openQuotes.map((r) => (
+                      <tr key={r.id} data-picked={fromQuote?.id === r.id || undefined}>
+                        <td className={s.muted}>{when(r.at)}</td>
+                        <td>{r.business}{r.notes && <div className={s.dim}>{r.notes}</div>}</td>
+                        <td>{r.name}{r.email && <div className={s.dim}><a href={`mailto:${r.email}`}>{r.email}</a></div>}</td>
+                        <td>{r.items.map(offerTitle).join(" + ")}</td>
+                        <td className={s.num}>${r.total}</td>
+                        <td>
+                          {r.order_id ? (
+                            <span className={s.status} data-s="done">order #{r.order_id}</span>
+                          ) : (
+                            <a className={`${s.btn} ${s.btnSmall}`} href={`/admin?tab=orders&quote=${r.id}#new-order`}>Create order</a>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </section>
+
             <div className={s.grid}>
               <section className={s.panel} aria-label="Orders">
                 <div className={s.panelHead}><h2 className={s.panelTitle}>Orders</h2><span className={s.panelMeta}>{orders.length} total</span></div>
@@ -314,7 +347,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
                         return (
                           <tr key={o.id}>
                             <td className={s.muted}>{when(o.created_at)}</td>
-                            <td>{o.business}{o.note && <div className={s.dim}>{o.note}</div>}</td>
+                            <td>{o.business}{o.quote_id && <div className={s.dim}>from quote #{o.quote_id}</div>}{o.note && <div className={s.dim}>{o.note}</div>}</td>
                             <td>{o.name}{o.email && <div className={s.dim}><a href={`mailto:${o.email}`}>{o.email}</a></div>}</td>
                             <td>{o.items.map(offerTitle).join(" + ")}</td>
                             <td>
@@ -347,21 +380,26 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
                 )}
               </section>
 
-              <section className={s.panel} aria-label="New order">
-                <div className={s.panelHead}><h2 className={s.panelTitle}>New order</h2></div>
-                <form className={s.orderForm} method="post" action="/api/admin/orders">
-                  <label className={`${s.field} ${s.wide}`}>Business<input name="business" required placeholder="Schaller Bros Liquor" /></label>
-                  <label className={s.field}>Contact name<input name="name" required /></label>
-                  <label className={`${s.field} ${s.wide}`}>Email<input name="email" type="email" /></label>
+              <section className={s.panel} id="new-order" aria-label="New order">
+                <div className={s.panelHead}>
+                  <h2 className={s.panelTitle}>{fromQuote ? `New order from quote #${fromQuote.id}` : "New order"}</h2>
+                  {fromQuote && <a className={s.panelMeta} href="/admin?tab=orders#new-order">Start blank</a>}
+                </div>
+                {/* keyed on the quote so picking another one resets the fields to its values */}
+                <form key={fromQuote?.id ?? "blank"} className={s.orderForm} method="post" action="/api/admin/orders">
+                  {fromQuote && <input type="hidden" name="quote_id" value={fromQuote.id} />}
+                  <label className={`${s.field} ${s.wide}`}>Business<input name="business" required placeholder="Schaller Bros Liquor" defaultValue={fromQuote?.business} /></label>
+                  <label className={s.field}>Contact name<input name="name" required defaultValue={fromQuote?.name} /></label>
+                  <label className={`${s.field} ${s.wide}`}>Email<input name="email" type="email" defaultValue={fromQuote?.email} /></label>
                   <div className={`${s.field} ${s.wide}`}>
                     Paid for
                     <div className={s.checks}>
                       {offers.map((o) => (
-                        <label key={o.id}><input type="checkbox" name="items" value={o.id} defaultChecked={o.id !== "tripod"} />{o.title}</label>
+                        <label key={o.id}><input type="checkbox" name="items" value={o.id} defaultChecked={fromQuote ? fromQuote.items.includes(o.id) : o.id !== "tripod"} />{o.title}</label>
                       ))}
                     </div>
                   </div>
-                  <label className={`${s.field} ${s.wide}`}>Internal note (optional)<textarea name="note" rows={2} /></label>
+                  <label className={`${s.field} ${s.wide}`}>Internal note (optional)<textarea name="note" rows={2} defaultValue={fromQuote?.notes ? `From the quote: ${fromQuote.notes}` : undefined} /></label>
                   <div className={s.wide}><button className={`${s.btn} ${s.btnPrimary}`} type="submit">Create order & link</button></div>
                 </form>
               </section>
