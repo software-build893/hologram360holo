@@ -16,7 +16,7 @@ export const niches = [
   { id: "liquor", label: "Liquor store", env: "bar", clip: "/media/holo-pin/liquor.mp4", poster: "/assets/holo-pin/liquor.png", client: "a champagne bottle" },
   { id: "donut", label: "Donut shop", env: "donut", clip: "/media/holo-pin/donut.mp4", poster: "/assets/holo-pin/donut.png", client: "glazed donuts" },
   { id: "juice", label: "Juice bar", env: "juice", clip: "/media/holo-pin/juice.mp4", poster: "/assets/holo-pin/juice.png", client: "orange juice" },
-  { id: "phone", label: "Phone shop", env: "phone", clip: "/media/holo-pin/phone.mp4", poster: "/assets/holo-pin/phone.png", client: "a phone case" },
+  { id: "clothing", label: "Clothing store", env: "clothing", clip: "/media/holo-pin/clothing.mp4", poster: "/assets/holo-pin/clothing.png", client: "a zip hoodie coming apart into its pieces" },
 ] as const;
 
 const specs = [

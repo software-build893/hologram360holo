@@ -32,7 +32,7 @@ export const offers = [
     short: "PD42 holographic LED fan, 42 cm, with its clear acrylic cover.",
     body:
       "Two-blade rotor, 1024 × 800 picture, Wi‑Fi and app control plus an infrared remote. Plays from an SD card and mounts to a wall with the screws in the box. The cover clips on with eight fasteners and keeps fingers and dust off the blades. Ships ready to loop your content from day one.",
-    still: "/media/product/exploded.jpg",
+    still: "/media/product/fan-cover.jpg",
   },
   {
     id: "content",
@@ -52,7 +52,7 @@ export const offers = [
     short: "A floor stand for spots with no wall.",
     body:
       "Adjustable tripod that holds the fan in its cover at 35, 55 or 71 inches. For counters, trade show booths, and anywhere you can’t put a screw in the wall. Folds flat for transport.",
-    still: "/media/stills/shb.jpg",
+    still: "/media/product/tripod.jpg",
   },
 ] as const;
 
