@@ -132,6 +132,25 @@ export async function quotesList(from: string, to: string, limit = 200): Promise
   return q<QuoteRow>("select id, at, name, business, email, notes, items, total from quotes where day between $1 and $2 order by at desc limit $3", [from, to, limit]);
 }
 
+export type QuoteSummary = { count: number; value: number; average: number; ordered: number; items: Record<string, number> };
+
+/** Quote requests in a date range: how many, what they add up to, how many became orders, and how often each item was picked. */
+export async function quoteSummary(from: string, to: string): Promise<QuoteSummary> {
+  const t = await one<{ count: number; value: number; ordered: number }>(
+    `select count(*)::int as count, coalesce(sum(total), 0)::int as value,
+            count(*) filter (where exists (select 1 from orders o where o.quote_id = quotes.id))::int as ordered
+     from quotes where day between $1 and $2`,
+    [from, to],
+  );
+  const picks = await q<{ item: string; n: number }>(
+    "select item, count(*)::int as n from quotes, jsonb_array_elements_text(items) as item where day between $1 and $2 group by item",
+    [from, to],
+  );
+  const count = t?.count ?? 0;
+  const value = t?.value ?? 0;
+  return { count, value, average: count ? value / count : 0, ordered: t?.ordered ?? 0, items: Object.fromEntries(picks.map((r) => [r.item, r.n])) };
+}
+
 export async function topReferrers(from: string, to: string, limit = 8): Promise<{ referrer: string; visitors: number }[]> {
   return q(
     `select case when referrer = '' then '(direct)' else referrer end as referrer, count(distinct (day, vid))::int as visitors

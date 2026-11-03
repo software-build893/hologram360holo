@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { currentAdmin, PASSWORD_MIN } from "@/lib/auth";
-import { adminsList, articlesList, articleViews, dailySeries, getSetting, ordersList, quoteById, quotesForOrders, quotesList, topReferrers, totals, uploadsByOrder } from "@/lib/db";
+import { adminsList, articlesList, articleViews, dailySeries, ordersList, quoteById, quotesForOrders, quotesList, quoteSummary, topReferrers, totals, uploadsByOrder } from "@/lib/db";
 import { presets, rangeFromParams, rangeQuery } from "@/lib/range";
 import { offers } from "@/lib/content";
 import Chart from "@/components/admin/Chart";
@@ -16,7 +16,6 @@ export const metadata = { title: "Analytics — 3D Hologram Ads" };
 type Params = Record<string, string | string[] | undefined>;
 
 const fmt = new Intl.NumberFormat("en-US");
-const money = (n: number, cur: string) => `${cur}${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const when = (iso: string) => new Date(iso).toLocaleString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }) + " UTC";
 const offerTitle = (id: string) => offers.find((o) => o.id === id)?.title ?? id;
 
@@ -34,17 +33,15 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
   const h = await headers();
   const origin = `${h.get("x-forwarded-proto") ?? "http"}://${h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:5190"}`;
 
-  const [t, rows, refs, quotes, rateSetting, currency, orders, uploads] = await Promise.all([
+  const [t, rows, refs, quotes, qs, orders, uploads] = await Promise.all([
     totals(range.from, range.to),
     dailySeries(range.from, range.to),
     topReferrers(range.from, range.to),
     quotesList(range.from, range.to),
-    getSetting("rate_per_visitor", "0.05"),
-    getSetting("currency", "$"),
+    quoteSummary(range.from, range.to),
     ordersList(),
     uploadsByOrder(),
   ]);
-  const rate = Number(rateSetting);
   const created = params.get("created");
   const error = params.get("error");
   const articles = tab === "articles" ? await articlesList() : [];
@@ -111,21 +108,19 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
                 <Chart rows={rows} className={s.chart} />
               </section>
 
-              <section className={s.panel} aria-label="Billing">
+              <section className={s.panel} aria-label="Quote requests summary">
                 <div className={s.panelHead}>
-                  <h2 className={s.panelTitle}>Billing for this period</h2>
-                  <a className={s.panelMeta} href={`/api/admin/export?${q}`}>Export CSV</a>
+                  <h2 className={s.panelTitle}>Quote requests for this period</h2>
+                  <a className={s.panelMeta} href={`/api/admin/export?${q}`}>Export visits CSV</a>
                 </div>
                 <div className={s.billing}>
-                  <div className={s.billRow}><span className={s.muted}>Visitors</span><span>{fmt.format(t.visitors)}</span></div>
-                  <div className={s.billRow}><span className={s.muted}>Rate per visitor</span><span>{money(rate, currency)}</span></div>
-                  <div className={s.billRow}><span className={s.muted}>Amount</span><span className={s.billAmount}>{money(t.visitors * rate, currency)}</span></div>
-                  <form className={s.rateForm} method="post" action="/api/admin/settings">
-                    <label className={s.field}>Currency<input name="currency" defaultValue={currency} maxLength={4} /></label>
-                    <label className={s.field}>Rate per visitor<input name="rate" type="number" step="0.001" min="0" defaultValue={rate} /></label>
-                    <input type="hidden" name="back" value={`/admin?${q}`} />
-                    <button className={s.btn} type="submit">Save</button>
-                  </form>
+                  <div className={s.billRow}><span className={s.muted}>Requests</span><span>{fmt.format(qs.count)}</span></div>
+                  <div className={s.billRow}><span className={s.muted}>Turned into orders</span><span>{fmt.format(qs.ordered)}{qs.count ? <span className={s.dim}> · {Math.round((qs.ordered / qs.count) * 100)}%</span> : null}</span></div>
+                  <div className={s.billRow}><span className={s.muted}>Average request</span><span>${Math.round(qs.average)}</span></div>
+                  {offers.map((o) => (
+                    <div key={o.id} className={s.billRow}><span className={s.muted}>{o.title}</span><span>{fmt.format(qs.items[o.id] ?? 0)} <span className={s.dim}>of {fmt.format(qs.count)}</span></span></div>
+                  ))}
+                  <div className={s.billRow}><span className={s.muted}>Total requested</span><span className={s.billAmount}>${fmt.format(qs.value)}</span></div>
                 </div>
               </section>
             </div>
