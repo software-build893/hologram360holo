@@ -54,7 +54,7 @@ export default function Chart({ rows, className }: { rows: DayRow[]; className?:
               </rect>
               {r.quotes > 0 && <circle cx={x} cy={y(0) + 7} r={2.5} fill="#7ee787"><title>{`${r.quotes} quote request${r.quotes > 1 ? "s" : ""}`}</title></circle>}
               {i % labelEvery === 0 && (
-                <text x={x} y={H - 6} textAnchor="middle">{r.day.slice(5)}</text>
+                <text x={x} y={H - 6} textAnchor="middle">{`${r.day.slice(8, 10)}/${r.day.slice(5, 7)}`}</text>
               )}
             </g>
           );
