@@ -26,7 +26,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
   const params = new URLSearchParams();
   for (const [k, v] of Object.entries(sp)) if (typeof v === "string") params.set(k, v);
   const tabParam = params.get("tab");
-  const tab = tabParam === "orders" ? "orders" : tabParam === "articles" ? "articles" : tabParam === "account" ? "account" : "traffic";
+  const tab = tabParam === "orders" ? "orders" : tabParam === "articles" ? "articles" : tabParam === "account" ? "account" : tabParam === "admins" ? "admins" : "traffic";
   const range = rangeFromParams(params);
   const q = rangeQuery(range);
 
@@ -52,16 +52,17 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
   const views = tab === "articles" ? await articleViews() : new Map<string, { views: number; visitors: number }>();
   const deleted = params.get("deleted");
   const ok = params.get("ok");
-  const admins = tab === "account" ? await adminsList() : [];
+  const admins = tab === "admins" ? await adminsList() : [];
 
   return (
     <div className={s.shell}>
       <header className={s.bar}>
         <a className={s.brand} href="/admin"><span>3D</span> Hologram Ads · Analytics</a>
         <nav className={s.barTabs} aria-label="Sections">
-          <a className={s.barTab} data-active={tab === "traffic" || undefined} href={`/admin?${q}`}>Traffic & billing</a>
+          <a className={s.barTab} data-active={tab === "traffic" || undefined} href={`/admin?${q}`}>Traffic & quotes</a>
           <a className={s.barTab} data-active={tab === "orders" || undefined} href={`/admin?tab=orders&${q}`}>Orders & uploads</a>
           <a className={s.barTab} data-active={tab === "articles" || undefined} href="/admin?tab=articles">Articles</a>
+          <a className={s.barTab} data-active={tab === "admins" || undefined} href="/admin?tab=admins">Admins</a>
         </nav>
         <div className={s.barRight}>
           <a href="/" className={s.muted}>View site</a>
@@ -93,7 +94,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
             </div>
 
             <section className={s.tiles} aria-label="Totals">
-              <div className={s.tile}><p className={s.tileLabel}>Visitors</p><p className={s.tileValue}>{fmt.format(t.visitors)}</p><p className={s.tileNote}>daily uniques, the billing basis</p></div>
+              <div className={s.tile}><p className={s.tileLabel}>Visitors</p><p className={s.tileValue}>{fmt.format(t.visitors)}</p><p className={s.tileNote}>daily uniques, one person per day</p></div>
               <div className={s.tile}><p className={s.tileLabel}>Page views</p><p className={s.tileValue}>{fmt.format(t.pageviews)}</p><p className={s.tileNote}>{t.visitors ? (t.pageviews / t.visitors).toFixed(1) : "0"} per visitor</p></div>
               <div className={s.tile}><p className={s.tileLabel}>Quote requests</p><p className={s.tileValue}>{fmt.format(t.quotes)}</p><p className={s.tileNote}>{t.visitors ? ((t.quotes / t.visitors) * 100).toFixed(1) : "0"}% of visitors</p></div>
               {(() => {
@@ -183,7 +184,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
             <div className={s.head}>
               <div>
                 <h1 className={s.h1}>Account</h1>
-                <p className={s.sub}>Signed in as {me.email}. Everyone listed below can do everything in this dashboard.</p>
+                <p className={s.sub}>Signed in as {me.email}. Your sign-in email, name and password. Other people's access is under <a href="/admin?tab=admins">Admins</a>.</p>
               </div>
             </div>
 
@@ -212,6 +213,19 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
                 </form>
               </section>
             </div>
+
+          </>
+        ) : tab === "admins" ? (
+          <>
+            <div className={s.head}>
+              <div>
+                <h1 className={s.h1}>Admins</h1>
+                <p className={s.sub}>Who can sign in to this dashboard. Every admin can see and do everything here, including adding and removing other admins.</p>
+              </div>
+            </div>
+
+            {error && <p className={s.error}>{error}</p>}
+            {ok && <p className={s.notice}>{ok}</p>}
 
             <div className={s.grid}>
               <section className={s.panel} aria-label="Admins">

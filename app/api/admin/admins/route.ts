@@ -6,7 +6,7 @@ import { redirectTo, sameOrigin } from "@/lib/http";
 // Other dashboard users: any signed-in admin can add one (with a first password to hand over) or remove one,
 // never themselves, and never the last account.
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const back = (msg: string, ok = false) => `/admin?tab=account&${ok ? "ok" : "error"}=${encodeURIComponent(msg)}`;
+const back = (msg: string, ok = false) => `/admin?tab=admins&${ok ? "ok" : "error"}=${encodeURIComponent(msg)}`;
 
 export async function POST(req: Request) {
   const me = await currentAdmin();
