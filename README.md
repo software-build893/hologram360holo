@@ -10,6 +10,14 @@
 
 Storage is PostgreSQL (`pg`), one database with `events`, `quotes`, `settings`, `orders`, `uploads` and `articles`; the schema in `scripts/schema.sql` is applied with `create … if not exists` on the first query, so a fresh database needs no migration step. Files that belong to rows live on disk under `data/` (gitignored): uploads in `data/uploads/<order id>/`, article covers and body pictures in `data/articles/`. Visitor ids are a salted hash of day + IP + user agent, so one person counts once per day and nothing in the browser is stored. Back up the `pgdata` volume and `data/` together.
 
+## Next up
+
+- **Social media tracking** (requested 2026-11-03, not started). Show where visitors and quote requests come from by social platform: Instagram, Facebook, TikTok, X, YouTube, Pinterest, WhatsApp.
+  - Today `events.referrer` keeps the raw referrer only. Group referrer hosts into platforms (for example `l.instagram.com` and `instagram.com` as Instagram), and store `utm_source`, `utm_medium` and `utm_campaign` from the landing URL, so links in bios and ads can be told apart.
+  - Add a "Social" panel to `/admin`: visitors, page views and quote requests per platform and per campaign, using the same date range and CSV export as the rest of the dashboard.
+  - Attribute each quote to the source of the visit that sent it.
+  - Ad pixels (Meta Pixel, TikTok Pixel) would be a separate decision. They store data in the browser, which the site avoids today, so they would also need a consent banner.
+
 ## Run it locally
 
 ```bash
