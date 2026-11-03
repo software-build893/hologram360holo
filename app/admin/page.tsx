@@ -100,7 +100,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
             </section>
 
             <div className={s.grid}>
-              <section className={s.panel} aria-label="Daily chart">
+              <section className={`${s.panel} ${s.chartPanel}`} aria-label="Daily chart">
                 <div className={s.panelHead}>
                   <h2 className={s.panelTitle}>Per day</h2>
                   <div className={s.legend}><span><i style={{ background: "#d7ff4a" }} />Visitors</span><span><i style={{ background: "#2f3233" }} />Page views</span><span><i style={{ background: "#7ee787", borderRadius: "50%" }} />Quote request</span></div>

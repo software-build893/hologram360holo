@@ -198,10 +198,20 @@
 }
 
 /* ---------- chart ---------- */
+/* the chart panel is a column; the chart takes the height the row gives it (set by the panel beside it) */
+.chartPanel {
+  display: flex;
+  flex-direction: column;
+}
 .chart {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 220px;
+}
+.chart svg {
+  position: absolute;
+  inset: 0;
   display: block;
-  width: 100%;
-  height: auto;
 }
 .chart text {
   font-family: var(--font);
