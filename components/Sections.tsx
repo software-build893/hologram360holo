@@ -136,7 +136,7 @@ export function Kit() {
         </div>
         <div className={s.kit}>
           <figure className={s.kitImage}>
-            <img src="/media/product/exploded.jpg" alt="Exploded view of the PD42: cover, LED bar, rotor hub, housing and mounting base" width={1800} height={1344} loading="lazy" />
+            <img src="/media/product/fan-and-cover.jpg" alt="The PD42 fan on its base with the two-blade LED bar, next to its clear acrylic cover" width={1800} height={1344} loading="lazy" />
           </figure>
           <ul className={s.parts} aria-label="Parts">
             {hardwareParts.map((p) => (
