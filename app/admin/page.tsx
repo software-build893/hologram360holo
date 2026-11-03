@@ -96,7 +96,22 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Pa
               <div className={s.tile}><p className={s.tileLabel}>Visitors</p><p className={s.tileValue}>{fmt.format(t.visitors)}</p><p className={s.tileNote}>daily uniques, the billing basis</p></div>
               <div className={s.tile}><p className={s.tileLabel}>Page views</p><p className={s.tileValue}>{fmt.format(t.pageviews)}</p><p className={s.tileNote}>{t.visitors ? (t.pageviews / t.visitors).toFixed(1) : "0"} per visitor</p></div>
               <div className={s.tile}><p className={s.tileLabel}>Quote requests</p><p className={s.tileValue}>{fmt.format(t.quotes)}</p><p className={s.tileNote}>{t.visitors ? ((t.quotes / t.visitors) * 100).toFixed(1) : "0"}% of visitors</p></div>
-              <div className={s.tile}><p className={s.tileLabel}>On a phone</p><p className={s.tileValue}>{Math.round(t.phoneShare * 100)}%</p><p className={s.tileNote}>viewport under 768 px</p></div>
+              {(() => {
+                const known = t.desktop + t.phone;
+                const desk = known ? Math.round((t.desktop / known) * 100) : 0;
+                return (
+                  <div className={s.tile}>
+                    <p className={s.tileLabel}>Desktop vs phone</p>
+                    <div className={s.split}>
+                      <p className={s.splitSide}><span className={s.tileValue}>{known ? `${desk}%` : "–"}</span><span className={s.splitName}>Desktop · {fmt.format(t.desktop)}</span></p>
+                      <p className={`${s.splitSide} ${s.splitRight}`}><span className={s.tileValue}>{known ? `${100 - desk}%` : "–"}</span><span className={s.splitName}>Phone · {fmt.format(t.phone)}</span></p>
+                    </div>
+                    <div className={s.splitBar} role="img" aria-label={`${t.desktop} desktop and ${t.phone} phone visitors`}>
+                      <i style={{ width: `${known ? desk : 0}%` }} />
+                    </div>
+                  </div>
+                );
+              })()}
             </section>
 
             <div className={s.grid}>

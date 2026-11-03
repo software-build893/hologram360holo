@@ -152,6 +152,36 @@
   color: var(--fg-dim);
 }
 
+/* desktop vs phone tile: two figures and a split bar (desktop lime, phone grey) */
+.split {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.splitSide {
+  margin: 0;
+  display: grid;
+}
+.splitRight {
+  text-align: right;
+}
+.splitName {
+  font-size: 12px;
+  color: var(--fg-dim);
+}
+.splitBar {
+  height: 4px;
+  margin-top: 10px;
+  border-radius: 2px;
+  background: #2f3233;
+  overflow: hidden;
+}
+.splitBar i {
+  display: block;
+  height: 100%;
+  background: #d7ff4a;
+}
+
 /* ---------- panels ---------- */
 .grid {
   display: grid;

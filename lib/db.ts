@@ -105,7 +105,7 @@ export async function dailySeries(from: string, to: string): Promise<DayRow[]> {
   return [...byDay.values()];
 }
 
-export type Totals = { visitors: number; pageviews: number; quotes: number; phoneShare: number };
+export type Totals = { visitors: number; pageviews: number; quotes: number; desktop: number; phone: number };
 
 /** Range totals. Visitors are daily uniques summed across days: one person counts once per day they visit. */
 export async function totals(from: string, to: string): Promise<Totals> {
@@ -114,15 +114,18 @@ export async function totals(from: string, to: string): Promise<Totals> {
     [from, to],
   );
   const quotes = await one<{ n: number }>("select count(*)::int as n from quotes where day between $1 and $2", [from, to]);
-  const phone = await one<{ phone: number; n: number }>(
-    "select count(*) filter (where width < 768)::int as phone, count(*)::int as n from events where day between $1 and $2 and width is not null",
+  // each daily visitor counts once, as a phone when their widest window that day was under 768 px
+  const devices = await one<{ desktop: number; phone: number }>(
+    `select count(*) filter (where w >= 768)::int as desktop, count(*) filter (where w < 768)::int as phone
+     from (select max(width) as w from events where day between $1 and $2 and width is not null group by day, vid) v`,
     [from, to],
   );
   return {
     visitors: v?.visitors ?? 0,
     pageviews: v?.pageviews ?? 0,
     quotes: quotes?.n ?? 0,
-    phoneShare: phone?.n ? phone.phone / phone.n : 0,
+    desktop: devices?.desktop ?? 0,
+    phone: devices?.phone ?? 0,
   };
 }
 
